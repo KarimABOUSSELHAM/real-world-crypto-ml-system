@@ -1,0 +1,52 @@
+
+# Show status:
+#
+# kubectl get nodes --show-labels
+# kubectl cluster-info --context kind-rwml-34fa
+#
+---
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: rwml-34fa
+networking:
+  # We choose a distinct subnet for the cluster to avoid conflicts with other clusters, as other manifests for prod can be written later.
+  # Remember the value 10.100.0.0/16 refers to private blocks. So it is safe for internal use.
+  podSubnet: "10.100.0.0/16"
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.30.13 # We chose the newest stable version of Kind image as of June 2025.
+    # This is to add a patch when the cluster is created. We stick a label to the control-plane node so as to identify it later to ingress traffic.
+    # This is useful cause there must be apps which need to be displayed on the browser.
+    kubeadmConfigPatches:
+    - |
+      kind: InitConfiguration
+      nodeRegistration:
+        kubeletExtraArgs:
+          node-labels: "ingress-ready=true"
+
+    extraPortMappings:
+    - containerPort: 80
+      hostPort: 80
+      protocol: TCP
+
+    - containerPort: 443
+      hostPort: 443
+      protocol: TCP
+
+    - containerPort: 31092
+      hostPort: 9092
+      listenAddress: "127.0.0.1"
+      protocol: TCP
+
+    - containerPort: 31234
+      hostPort: 31234
+      listenAddress: "127.0.0.1"
+      protocol: TCP
+
+    - containerPort: 31235
+      hostPort: 31235
+      listenAddress: "127.0.0.1"
+
+    - containerPort: 31236
+      hostPort: 31236
+      listenAddress: "127.0.0.1"
