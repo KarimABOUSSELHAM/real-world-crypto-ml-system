@@ -38,13 +38,15 @@ def run(
                     #key=message.key
                 )
                 # Log the produced messages
-                logger.info(f"Produced message to topic: {topic.name}")
+                # logger.info(f"Produced message to topic: {topic.name}")
+                logger.info(f"Trade {event} pushed to kafka")
 
 if __name__ == '__main__':
+    from config import config
     # create an instance of KrakenAPI to talk to Kraken websocket API
-    api= KrakenAPI(product_ids=["BTC/USD"])
+    api= KrakenAPI(product_ids=config.product_ids)
     run(
-        kafka_broker_address="localhost:9092",
-        kafka_topic_name="trades",
+        kafka_broker_address=config.kafka_broker_address,
+        kafka_topic_name=config.kafka_topic_name,
         kraken_api=api
     )
