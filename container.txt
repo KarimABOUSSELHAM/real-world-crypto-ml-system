@@ -1,0 +1,2 @@
+[2mUsing Python 3.12.11 environment at: /usr/local[0m
+[1mpip[0m==25.0.1
