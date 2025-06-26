@@ -221,3 +221,5 @@ anthropic.env
 .env.local
 
 *.pyc
+.sops.yaml
+/homeworks
