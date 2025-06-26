@@ -1,6 +1,6 @@
 # Runs the trade service locally
 dev:
-	uv run services/trades/src/trades/main.py
+	uv run services/${service}/src/${service}/main.py
 
 # Loads the trades docker image into KinD cluster
 push:
@@ -8,7 +8,7 @@ push:
 
 #Build a docker image for the trades service
 build:
-	docker build --no-cache -t trades:dev -f docker/trades.Dockerfile .
+	docker build -t ${service}:dev -f docker/${service}.Dockerfile .
 
 # Deploys the trades service to the KinD cluster
 deploy: build push
