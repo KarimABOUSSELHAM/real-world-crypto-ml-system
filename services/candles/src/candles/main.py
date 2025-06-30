@@ -47,6 +47,7 @@ def run(
     kafka_broker_address: str,
     kafka_input_topic: str,
     kafka_output_topic: str,
+    kafka_consumer_group: str,
     candle_seconds: int,
 ):
     """
@@ -60,6 +61,7 @@ def run(
         kafka_broker_address (str): Address of the Kafka broker.
         kafka_input_topic (str): Name of the Kafka topic to read trades from.
         kafka_output_topic (str): Name of the Kafka topic to write candles to.
+        kafka_consumer_group (str): Kafka consumer group name.
         candle_seconds (int): Duration of each candle in seconds.
 
     Returns:
@@ -67,6 +69,7 @@ def run(
     """
     app = Application(
         broker_address=kafka_broker_address,
+        consumer_group=kafka_consumer_group,
     )
     # Define the input topic
     trades_topic = app.topic(
@@ -138,5 +141,6 @@ if __name__ == '__main__':
         kafka_broker_address=config.kafka_broker_address,
         kafka_input_topic=config.kafka_input_topic,
         kafka_output_topic=config.kafka_output_topic,
+        kafka_consumer_group=config.kafka_consumer_group,
         candle_seconds=config.candle_seconds,
     )
