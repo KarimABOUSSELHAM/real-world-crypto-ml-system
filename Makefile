@@ -1,19 +1,19 @@
-# Runs the trade service locally
+# Runs the service locally
 dev:
 	uv run services/${service}/src/${service}/main.py
 
-# Loads the trades docker image into KinD cluster
+# Loads the docker image into KinD cluster
 push:
-	kind load docker-image trades:dev --name rwml-34fa
+	kind load docker-image ${service}:dev --name rwml-34fa
 
-#Build a docker image for the trades service
+#Build a docker image for the service
 build:
 	docker build -t ${service}:dev -f docker/${service}.Dockerfile .
 
-# Deploys the trades service to the KinD cluster
+# Deploys the service to the KinD cluster
 deploy: build push
-	kubectl delete -f deployments/dev/trades/trades.yaml || true 
-	kubectl apply -f deployments/dev/trades/trades.yaml
+	kubectl delete -f deployments/dev/${service}/${service}.yaml || true 
+	kubectl apply -f deployments/dev/${service}/${service}.yaml
 
 lint:
 	ruff check . --fix
