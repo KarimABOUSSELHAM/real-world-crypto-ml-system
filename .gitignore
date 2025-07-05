@@ -223,3 +223,4 @@ anthropic.env
 *.pyc
 .sops.yaml
 /homeworks
+auth

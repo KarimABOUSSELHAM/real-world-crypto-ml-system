@@ -1,22 +1,56 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: dual-role
+  namespace: strimzi
+  labels:
+    strimzi.io/cluster: kafka-c6c8
+spec:
+  replicas: 3
+  roles:
+    - controller
+    - broker
+  storage:
+    type: jbod
+    volumes:
+      - id: 0
+        type: persistent-claim
+        size: 10Gi
+        deleteClaim: false
+        kraftMetadata: shared
+
+---
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: kafka-c6c8
   namespace: strimzi
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
 spec:
   kafka:
-    replicas: 1
+    version: 4.0.0
+    metadataVersion: 4.0.0
     listeners:
       - name: plain
         port: 9092
         type: internal
         tls: false
-    storage:
-      type: ephemeral
-  zookeeper:
-    replicas: 1
-    storage:
-      type: ephemeral
+
+      - name: external
+        port: 9094
+        type: loadbalancer
+        tls: false
+
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+
   entityOperator:
     topicOperator: {}
     userOperator: {}
