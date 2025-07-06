@@ -10,6 +10,8 @@ dependencies = [
     "pre-commit>=4.2.0",
     "quixstreams>=3.17.0",
     "ruff>=0.12.0",
+    "ta-lib>=0.6.4",
+    "technical-indicators",
     "websocket-client>=1.8.0",
 ]
 
@@ -35,7 +37,9 @@ quote-style = "single"
 [tool.uv.workspace]
 members = [
     "services/candles",
+    "services/technical_indicators",
 ]
 
 [tool.uv.sources]
 candles = { workspace = true }
+technical-indicators = { workspace = true }
