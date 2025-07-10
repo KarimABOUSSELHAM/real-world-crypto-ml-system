@@ -19,7 +19,7 @@ def compute_technical_indicators(candle: dict, state: dict):
     _open = np.array([c['open'] for c in candles], dtype=np.float64)
     _high = np.array([c['high'] for c in candles], dtype=np.float64)
     _low = np.array([c['low'] for c in candles], dtype=np.float64)
-    _volume = np.array([c['volume'] for c in candles], dtype=np.float64)
+    volume = np.array([c['volume'] for c in candles], dtype=np.float64)
     indicators = {}
     # Simple moving average
     # - window: 7
@@ -30,6 +30,24 @@ def compute_technical_indicators(candle: dict, state: dict):
     indicators['sma_21'] = stream.SMA(close, timeperiod=21)
     # - window: 60
     indicators['sma_60'] = stream.SMA(close, timeperiod=21)
+    # Exponential moving average for different periods
+    indicators['ema_7'] = stream.EMA(close, timeperiod=7)
+    indicators['ema_14'] = stream.EMA(close, timeperiod=14)
+    indicators['ema_21'] = stream.EMA(close, timeperiod=21)
+    indicators['ema_60'] = stream.EMA(close, timeperiod=60)
+
+    # Relative strength index for different periods
+    indicators['rsi_7'] = stream.RSI(close, timeperiod=7)
+    indicators['rsi_14'] = stream.RSI(close, timeperiod=14)
+    indicators['rsi_21'] = stream.RSI(close, timeperiod=21)
+    indicators['rsi_60'] = stream.RSI(close, timeperiod=60)
+
+    # Moving average convergence divergence for different periods
+    indicators['macd_7'], indicators['macdsignal_7'], indicators['macdhist_7'] = (
+        stream.MACD(close, fastperiod=7, slowperiod=14, signalperiod=9)
+    )
+    # On balance volume
+    indicators['obv'] = stream.OBV(close, volume)
     # breakpoint()
     return {
         **candle,
