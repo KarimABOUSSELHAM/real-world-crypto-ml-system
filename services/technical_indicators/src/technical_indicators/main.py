@@ -1,6 +1,9 @@
 from loguru import logger
 from quixstreams import Application
 
+from technical_indicators.candle import update_candles_in_state
+from technical_indicators.indicators import compute_technical_indicators
+
 
 def run(
     kafka_broker_address: str,
@@ -47,13 +50,17 @@ def run(
     # Filter the candles for the given `candle_seconds`
     sdf = sdf[sdf['candle_seconds'] == candle_seconds]
 
-    # Step 2. Compute technical indicators
-    # TODO: data processing
+    # Step 2. Add candles to the state
+    sdf = sdf.apply(update_candles_in_state, stateful=True)
+    # Log the updated candle
+    # sdf=sdf.update(lambda message: logger.debug(f'Updated candle: {message}'))
 
+    # Step3. Compute technical indicators and
+    sdf = sdf.apply(compute_technical_indicators, stateful=True)
     # Print the data
     sdf = sdf.update(lambda message: logger.debug(f'Final message: {message}'))
 
-    # Step 3. Produce candles to the output topic
+    # Step 4. Produce candles to the output topic
     sdf = sdf.to_topic(topic=technical_indicators_topic)
 
     # Start the streaming application
