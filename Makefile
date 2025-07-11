@@ -6,6 +6,8 @@
 dev:
 	uv run services/${service}/src/${service}/main.py
 
+build-for-dev:
+	docker build -t ${service}:dev -f docker/${service}.Dockerfile .
 # Loads the docker image into KinD cluster
 push-for-dev:
 	kind load docker-image ${service}:dev --name rwml-34fa
@@ -15,7 +17,7 @@ build-for-dev:
 	docker build -t ${service}:dev -f docker/${service}.Dockerfile .
 
 # Deploys the service to the KinD cluster
-deploy-for-dev: build push
+deploy-for-dev: build-for-dev push-for-dev
 	kubectl delete -f deployments/dev/${service}/${service}.yaml || true 
 	kubectl apply -f deployments/dev/${service}/${service}.yaml
 
