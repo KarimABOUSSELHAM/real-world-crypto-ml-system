@@ -31,3 +31,8 @@ chmod +x ./install_kafka_ui.sh
 echo "Installing Risingwave..."
 chmod +x ./install_risingwave.sh
 ./install_risingwave.sh
+
+#7. Install Grafana
+echo "Installing Grafana..."
+chmod +x ./install_grafana.sh
+./install_grafana.sh
