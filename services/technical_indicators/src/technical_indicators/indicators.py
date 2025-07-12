@@ -2,6 +2,8 @@ import numpy as np
 from loguru import logger
 from talib import stream
 
+from technical_indicators.config import config
+
 
 def compute_technical_indicators(candle: dict, state: dict):
     """
@@ -21,15 +23,11 @@ def compute_technical_indicators(candle: dict, state: dict):
     _low = np.array([c['low'] for c in candles], dtype=np.float64)
     volume = np.array([c['volume'] for c in candles], dtype=np.float64)
     indicators = {}
-    # Simple moving average
-    # - window: 7
-    indicators['sma_7'] = stream.SMA(close, timeperiod=7)
-    # - window: 14
-    indicators['sma_14'] = stream.SMA(close, timeperiod=14)
-    # - window: 21
-    indicators['sma_21'] = stream.SMA(close, timeperiod=21)
-    # - window: 60
-    indicators['sma_60'] = stream.SMA(close, timeperiod=21)
+
+    for period in config.sma_periods:
+        # Simple moving average
+        # - window: period
+        indicators[f'sma_{period}'] = stream.SMA(close, timeperiod=period)
     # Exponential moving average for different periods
     indicators['ema_7'] = stream.EMA(close, timeperiod=7)
     indicators['ema_14'] = stream.EMA(close, timeperiod=14)

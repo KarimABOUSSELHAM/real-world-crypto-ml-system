@@ -75,7 +75,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 # ENV SERVICE_NAME=${SERVICE_NAME}
 
 # ENTRYPOINT []
-CMD /bin/sh -c "python /app/services/technical_indicators/src/technical_indicators/main.py"
+CMD ["/bin/sh", "-c", "python /app/services/technical_indicators/src/technical_indicators/main.py"]
 
 
 # CMD ["/bin/sh", "-c", "sleep 3600"]
