@@ -6,8 +6,6 @@
 dev:
 	uv run services/${service}/src/${service}/main.py
 
-build-for-dev:
-	docker build -t ${service}:dev -f docker/${service}.Dockerfile .
 # Loads the docker image into KinD cluster
 push-for-dev:
 	kind load docker-image ${service}:dev --name rwml-34fa
