@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     max_candles_in_state: int = 100
     sma_periods: Optional[List[int]] = None
 
+    table_name_in_risingwave: str = 'technical_indicators'
+
     @classmethod
     def from_yaml(cls):
         import yaml

@@ -2,26 +2,11 @@ import json
 from typing import List
 
 from loguru import logger
-from pydantic import BaseModel
+from trade import Trade
 from websocket import create_connection
 
 
-class Trade(BaseModel):
-    product_id: str
-    price: float
-    quantity: float
-    timestamp: str
-
-    def to_dict(self):
-        """
-        Converts the Trade object to a dictionary.
-        Returns:
-            dict: A dictionary representation of the Trade object.
-        """
-        return self.model_dump()
-
-
-class KrakenAPI:
+class KrakenWebsocketAPI:
     URL = 'wss://ws.kraken.com/v2'
 
     def __init__(
@@ -57,6 +42,13 @@ class KrakenAPI:
         for _ in self.product_ids:
             _ = self._ws_client.recv()
             _ = self._ws_client.recv()
+
+    def is_done(self) -> bool:
+        """
+        Returns whether the websocket API is done.
+        Since Kraken Websocket API is a live stream, it never ends.
+        """
+        return False
 
     def get_trades(self) -> List[Trade]:
         """
