@@ -26,3 +26,8 @@ chmod +x ./install_kafka.sh
 echo "Installing Kafka UI..."
 chmod +x ./install_kafka_ui.sh
 ./install_kafka_ui.sh
+
+#7. Install Risingwave
+echo "Installing Risingwave..."
+chmod +x ./install_risingwave.sh
+./install_risingwave.sh
