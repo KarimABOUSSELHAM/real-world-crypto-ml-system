@@ -55,6 +55,16 @@ datasources:
       - { name: Alertmanager, orgId: 1 }
       - { name: Loki, orgId: 1 }
       - { name: Prometheus, orgId: 1 }
+    datasources:
+      - name: RisingWave
+        type: postgres
+        access: proxy
+        url: risingwave-postgresql.risingwave.svc.cluster.local:5432
+        database: risingwave
+        user: root
+        secureJsonData:
+          password: "123456"
+        isDefault: true
 
 dashboards:
   default:
