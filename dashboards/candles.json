@@ -118,7 +118,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "select\r\n open, high, low, close, pair, window_start_ms, window_end_ms,\r\n to_timestamp(window_start_ms/1000) as time \r\n FROM public.technical_indicators \r\n where pair= 'ETH/EUR'\r\n limit 10;",
+          "rawSql": "select\r\n open, high, low, close, pair, window_start_ms, window_end_ms,\r\n to_timestamp(window_start_ms/1000) as time \r\n FROM public.technical_indicators \r\n where pair= 'ETH/EUR'\r\n ;",
           "refId": "A",
           "sql": {
             "columns": [
@@ -239,7 +239,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "select\r\n open, high, low, close, pair, window_start_ms, window_end_ms,\r\n to_timestamp(window_start_ms/1000) as time \r\n FROM public.technical_indicators \r\n where pair= 'BTC/EUR'\r\n limit 10;",
+          "rawSql": "select\r\n open, high, low, close, pair, window_start_ms, window_end_ms,\r\n to_timestamp(window_start_ms/1000) as time \r\n FROM public.technical_indicators \r\n where pair= 'BTC/EUR'\r\n ;",
           "refId": "A",
           "sql": {
             "columns": [
