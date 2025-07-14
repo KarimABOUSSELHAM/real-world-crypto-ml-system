@@ -45,3 +45,31 @@ class Trade(BaseModel):
             timestamp=cls.unix_seconds_to_iso_format(timestamp_sec),
             timestamp_ms=int(timestamp_sec * 1000),  # Convert seconds to milliseconds
         )
+
+    @classmethod
+    def from_kraken_websocket_response(
+        cls,
+        product_id: str,
+        price: float,
+        quantity: float,
+        timestamp: str,
+    ) -> 'Trade':
+        """
+        Creates a Trade object from the Kraken WebSocket response.
+        """
+        return cls(
+            product_id=product_id,
+            price=price,
+            quantity=quantity,
+            timestamp=timestamp,
+            timestamp_ms=int(
+                cls.iso_format_to_unix_seconds(timestamp) * 1000
+            ),  # Convert seconds to milliseconds
+        )
+
+    @staticmethod
+    def iso_format_to_unix_seconds(iso_format: str) -> float:
+        """
+        Convert ISO format to unix seconds timestamp format
+        """
+        return datetime.datetime.fromisoformat(iso_format).timestamp()

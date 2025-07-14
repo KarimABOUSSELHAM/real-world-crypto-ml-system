@@ -238,6 +238,11 @@ dependencies = [
     { name = "websocket-client" },
 ]
 
+[package.optional-dependencies]
+talib = [
+    { name = "ta-lib" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "candles", editable = "services/candles" },
@@ -246,9 +251,11 @@ requires-dist = [
     { name = "quixstreams", specifier = ">=3.17.0" },
     { name = "requests", specifier = ">=2.32.4" },
     { name = "ruff", specifier = ">=0.12.0" },
+    { name = "ta-lib", marker = "extra == 'talib'", specifier = ">=0.6.4" },
     { name = "technical-indicators", editable = "services/technical_indicators" },
     { name = "websocket-client", specifier = ">=1.8.0" },
 ]
+provides-extras = ["talib"]
 
 [[package]]
 name = "cryptography"
@@ -949,12 +956,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/ba/97/a49816dd468a18ee0
 name = "technical-indicators"
 version = "0.1.0"
 source = { editable = "services/technical_indicators" }
-dependencies = [
-    { name = "ta-lib" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "ta-lib", specifier = ">=0.6.4" }]
 
 [[package]]
 name = "typing-extensions"
