@@ -43,3 +43,8 @@ members = [
 [tool.uv.sources]
 candles = { workspace = true }
 technical-indicators = { workspace = true }
+
+[project.optional-dependencies]
+talib = [
+    "ta-lib>=0.6.4",
+]
