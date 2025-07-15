@@ -9,9 +9,9 @@ class Settings(BaseSettings):
         evn_file_encoding='utf-8',
     )
     product_ids: List[str] = [
+        'ETH/EUR',
         'BTC/USD',
         'BTC/EUR',
-        'ETH/EUR',
         'ETH/USD',
         'SOL/USD',
         'SOL/EUR',
