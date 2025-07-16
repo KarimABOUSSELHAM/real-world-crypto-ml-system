@@ -224,3 +224,6 @@ anthropic.env
 .sops.yaml
 /homeworks
 auth
+
+kubeconfig
+*-secret.yaml
