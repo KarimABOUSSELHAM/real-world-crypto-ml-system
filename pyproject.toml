@@ -38,6 +38,7 @@ quote-style = "single"
 members = [
     "services/candles",
     "services/technical_indicators",
+    "services/predictor",
 ]
 
 [tool.uv.sources]
