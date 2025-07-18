@@ -2140,6 +2140,7 @@ dependencies = [
     { name = "mlflow" },
     { name = "psycopg2-binary" },
     { name = "risingwave-py" },
+    { name = "scikit-learn" },
     { name = "ydata-profiling" },
 ]
 
@@ -2149,6 +2150,7 @@ requires-dist = [
     { name = "mlflow", specifier = ">=3.1.1" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "risingwave-py", specifier = ">=0.0.2" },
+    { name = "scikit-learn", specifier = ">=1.7.1" },
     { name = "ydata-profiling", specifier = ">=4.16.1" },
 ]
 

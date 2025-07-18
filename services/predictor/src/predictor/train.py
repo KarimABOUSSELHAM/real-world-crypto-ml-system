@@ -109,6 +109,7 @@ def train(
     lookback_period: int,
     candle_seconds: int,
     prediction_horizon_seconds: int,
+    train_test_split_ratio: float,
     n_rows_for_data_profiling: Optional[int] = None,
     eda_report_html_path: Optional[str] = './eda_report.html',
 ):
@@ -147,6 +148,8 @@ def train(
         ts_data['target'] = ts_data['close'].shift(
             -prediction_horizon_seconds // candle_seconds
         )
+        # drop the last rows with NaN target values
+        ts_data = ts_data.dropna(subset=['target'])
         # log the data to mlflow
         dataset = mlflow.data.from_pandas(ts_data)
         mlflow.log_input(dataset, context='training')
@@ -167,6 +170,31 @@ def train(
             'Data exploratory analysis report created and being pushed to mlflow.'
         )
         mlflow.log_artifact(local_path=eda_report_html_path, artifact_path='eda_report')
+        # Step 5: Split the data into train and test sets
+        train_size = int(len(ts_data) * train_test_split_ratio)
+        train_data = ts_data[:train_size]
+        test_data = ts_data[train_size:]
+        mlflow.log_param('train_data shape', train_data.shape)
+        mlflow.log_param('test_data shape', test_data.shape)
+        # Step 6: Split data into features and target
+        X_train = train_data.drop(columns=['target'])
+        y_train = train_data['target']
+        X_test = test_data.drop(columns=['target'])
+        y_test = test_data['target']
+        mlflow.log_param('X_train shape', X_train.shape)
+        mlflow.log_param('y_train shape', y_train.shape)
+        mlflow.log_param('X_test shape', X_test.shape)
+        mlflow.log_param('y_test shape', y_test.shape)
+        # Step 7: Train a baseline model
+        from predictor.models import BaselineModel
+
+        baseline_model = BaselineModel()
+        y_pred = baseline_model.predict(X_test)
+        from sklearn.metrics import mean_absolute_error
+
+        test_mae_baseline = mean_absolute_error(y_test, y_pred)
+        mlflow.log_metric('test_mae_baseline', test_mae_baseline)
+        logger.info(f'Test MAE for baseline model: {test_mae_baseline:.4f}')
 
 
 if __name__ == '__main__':
@@ -183,4 +211,5 @@ if __name__ == '__main__':
         prediction_horizon_seconds=300,
         n_rows_for_data_profiling=100,
         eda_report_html_path='./eda_report.html',
+        train_test_split_ratio=0.8,
     )
