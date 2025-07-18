@@ -1,8 +1,31 @@
 # The training script for the predictor service.
+from typing import Optional
+
 import great_expectations as ge
+import mlflow
 import pandas as pd
 from loguru import logger
 from risingwave import OutputFormat, RisingWave, RisingWaveConnOptions
+from ydata_profiling import ProfileReport
+
+
+def generate_data_exploratory_analysis_report(
+    ts_data: pd.DataFrame,
+    output_html_path: str,
+):
+    """
+    Generates a data exploratory analysis report for the time series data.
+    This report can be used to understand the data better and identify potential issues.
+
+    Args:
+        ts_data (pd.DataFrame): input time series data to analyze.
+        output_html_path (str): The path to the html file which saves the report.
+    """
+    logger.info('Generating data exploratory analysis report...')
+    profile = ProfileReport(
+        ts_data, tsmode=True, sortby='window_start_ms', title='Technical indicators EDA'
+    )
+    profile.to_file(output_html_path)
 
 
 def validate_data(ts_data: pd.DataFrame):
@@ -72,9 +95,11 @@ def load_ts_data_from_risingwave(
     logger.info(
         f'Successfully loaded {len(ts_data)} time series rows data from RisingWave for the pair {pair}.'
     )
+    return ts_data
 
 
 def train(
+    mlflow_tracking_uri: str,
     risingWave_host: str,
     risingWave_port: int,
     risingWave_user: str,
@@ -84,40 +109,78 @@ def train(
     lookback_period: int,
     candle_seconds: int,
     prediction_horizon_seconds: int,
+    n_rows_for_data_profiling: Optional[int] = None,
+    eda_report_html_path: Optional[str] = './eda_report.html',
 ):
     """
     Trains a predictor for the given pair and data, and if the model is good enough, it pushes it
     to the model registry.
     """
-    # Step 1: Load the time series data from RisingWave
-    ts_data = load_ts_data_from_risingwave(
-        host=risingWave_host,
-        port=risingWave_port,
-        user=risingWave_user,
-        password=risingWave_password,
-        database=risingWave_database,
-        pair=pair,
-        lookback_period=lookback_period,
-        candle_seconds=candle_seconds,
+    # Set the MLflow tracking URI
+    logger.info('Starting training process...')
+    logger.info(f'Setting MLflow tracking URI to {mlflow_tracking_uri}')
+    mlflow.set_tracking_uri(uri=mlflow_tracking_uri)
+    logger.info('Setting MLflow experiment...')
+    from predictor.names import get_experiment_name
+
+    mlflow.set_experiment(
+        experiment_name=get_experiment_name(
+            pair=pair,
+            candle_seconds=candle_seconds,
+            prediction_horizon_seconds=prediction_horizon_seconds,
+        )
     )
-    # Step 2: Add a target column
-    ts_data['target'] = ts_data['close'].shift(
-        -prediction_horizon_seconds // candle_seconds
-    )
-    # Step 3: Validate the data
-    validate_data(ts_data)
-    # Step 4: Profile the data
+    with mlflow.start_run():
+        logger.info('Started MLflow run')
+        # Step 1: Load the time series data from RisingWave
+        ts_data = load_ts_data_from_risingwave(
+            host=risingWave_host,
+            port=risingWave_port,
+            user=risingWave_user,
+            password=risingWave_password,
+            database=risingWave_database,
+            pair=pair,
+            lookback_period=lookback_period,
+            candle_seconds=candle_seconds,
+        )
+        # Step 2: Add a target column
+        ts_data['target'] = ts_data['close'].shift(
+            -prediction_horizon_seconds // candle_seconds
+        )
+        # log the data to mlflow
+        dataset = mlflow.data.from_pandas(ts_data)
+        mlflow.log_input(dataset, context='training')
+        # Log dataset size
+        mlflow.log_param('ts_data shape', ts_data.shape)
+        # Step 3: Validate the data
+        validate_data(ts_data)
+        # Step 4: Profile the data
+        ts_data_to_profile = (
+            ts_data.head(n_rows_for_data_profiling)
+            if n_rows_for_data_profiling
+            else ts_data
+        )
+        generate_data_exploratory_analysis_report(
+            ts_data_to_profile, output_html_path=eda_report_html_path
+        )
+        logger.info(
+            'Data exploratory analysis report created and being pushed to mlflow.'
+        )
+        mlflow.log_artifact(local_path=eda_report_html_path, artifact_path='eda_report')
 
 
 if __name__ == '__main__':
     train(
+        mlflow_tracking_uri='http://localhost:5000',
         risingWave_host='localhost',
         risingWave_port=4567,
         risingWave_user='root',
         risingWave_password='',
         risingWave_database='dev',
         pair='ETH/EUR',
-        lookback_period=30,
+        lookback_period=10,
         candle_seconds=60,
         prediction_horizon_seconds=300,
+        n_rows_for_data_profiling=100,
+        eda_report_html_path='./eda_report.html',
     )
