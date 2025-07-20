@@ -1,5 +1,4 @@
 # The training script for the predictor service.
-from typing import Optional
 
 import great_expectations as ge
 import mlflow
@@ -110,8 +109,9 @@ def train(
     candle_seconds: int,
     prediction_horizon_seconds: int,
     train_test_split_ratio: float,
-    n_rows_for_data_profiling: Optional[int] = None,
-    eda_report_html_path: Optional[str] = './eda_report.html',
+    n_rows_for_data_profiling: int,
+    eda_report_html_path: str,
+    features: list[str],
 ):
     """
     Trains a predictor for the given pair and data, and if the model is good enough, it pushes it
@@ -133,6 +133,13 @@ def train(
     )
     with mlflow.start_run():
         logger.info('Started MLflow run')
+        mlflow.log_param('features', features)
+        mlflow.log_param('pair', pair)
+        mlflow.log_param('days_in_past', lookback_period)
+        mlflow.log_param('candle_seconds', candle_seconds)
+        mlflow.log_param('prediction_horizon_seconds', prediction_horizon_seconds)
+        mlflow.log_param('train_test_split_ratio', train_test_split_ratio)
+        mlflow.log_param('n_rows_data_profiling', n_rows_for_data_profiling)
         # Step 1: Load the time series data from RisingWave
         ts_data = load_ts_data_from_risingwave(
             host=risingWave_host,
@@ -144,6 +151,8 @@ def train(
             lookback_period=lookback_period,
             candle_seconds=candle_seconds,
         )
+        # Keep only the features
+        ts_data = ts_data[features]
         # Step 2: Add a target column
         ts_data['target'] = ts_data['close'].shift(
             -prediction_horizon_seconds // candle_seconds
@@ -195,6 +204,16 @@ def train(
         test_mae_baseline = mean_absolute_error(y_test, y_pred)
         mlflow.log_metric('test_mae_baseline', test_mae_baseline)
         logger.info(f'Test MAE for baseline model: {test_mae_baseline:.4f}')
+    # Step 8: Train a set of n models to get a sense what model is supposed to be the best
+    # We use lazypredict which uses default hyperparamters for each model.
+    from predictor.models import generate_lazypredict_model_table
+
+    model_scores = generate_lazypredict_model_table(X_train, y_train, X_test, y_test)
+    model_scores.reset_index(inplace=True)
+    mlflow.log_table(model_scores, 'model_scores_with_default_hyperparameters_2.json')
+    logger.info(model_scores.to_string())
+    # Step 9: Pick the best model from the table and train it with the best hyperparameters
+    # TODO: Implement this step
 
 
 if __name__ == '__main__':
@@ -212,4 +231,29 @@ if __name__ == '__main__':
         n_rows_for_data_profiling=100,
         eda_report_html_path='./eda_report.html',
         train_test_split_ratio=0.8,
+        features=[
+            'open',
+            'high',
+            'low',
+            'close',
+            'window_start_ms',
+            'window_end_ms',
+            'volume',
+            'sma_7',
+            'sma_14',
+            'sma_21',
+            'sma_60',
+            'ema_7',
+            'ema_14',
+            'ema_21',
+            'ema_60',
+            'rsi_7',
+            'rsi_14',
+            'rsi_21',
+            'rsi_60',
+            'macd_7',
+            'macdsignal_7',
+            'macdhist_7',
+            'obv',
+        ],
     )
