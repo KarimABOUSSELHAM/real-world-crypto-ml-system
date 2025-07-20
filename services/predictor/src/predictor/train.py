@@ -112,6 +112,8 @@ def train(
     n_rows_for_data_profiling: int,
     eda_report_html_path: str,
     features: list[str],
+    hyperparam_search_trials: int,
+    hyperparam_search_n_splits: int,
 ):
     """
     Trains a predictor for the given pair and data, and if the model is good enough, it pushes it
@@ -198,22 +200,40 @@ def train(
         from predictor.models import BaselineModel
 
         baseline_model = BaselineModel()
-        y_pred = baseline_model.predict(X_test)
+        y_pred_baseline = baseline_model.predict(X_test)
         from sklearn.metrics import mean_absolute_error
 
-        test_mae_baseline = mean_absolute_error(y_test, y_pred)
+        test_mae_baseline = mean_absolute_error(y_test, y_pred_baseline)
         mlflow.log_metric('test_mae_baseline', test_mae_baseline)
         logger.info(f'Test MAE for baseline model: {test_mae_baseline:.4f}')
-    # Step 8: Train a set of n models to get a sense what model is supposed to be the best
-    # We use lazypredict which uses default hyperparamters for each model.
-    from predictor.models import generate_lazypredict_model_table
+        # Step 8: Train a set of n models to get a sense what model is supposed to be the best
+        # We use lazypredict which uses default hyperparamters for each model.
 
-    model_scores = generate_lazypredict_model_table(X_train, y_train, X_test, y_test)
-    model_scores.reset_index(inplace=True)
-    mlflow.log_table(model_scores, 'model_scores_with_default_hyperparameters_2.json')
-    logger.info(model_scores.to_string())
-    # Step 9: Pick the best model from the table and train it with the best hyperparameters
-    # TODO: Implement this step
+        # model_scores, model_names = generate_lazypredict_model_table(X_train, y_train, X_test, y_test)
+        # model_scores.reset_index(inplace=True)
+        # mlflow.log_table(model_scores, 'model_scores_with_default_hyperparameters_2.json')
+        # logger.info(model_scores.to_string())
+        model_names = ['SomeDummyModel', 'OrthogonalMatchingPursuit']
+        # Step 9: Pick the best model from the table and train it with the best hyperparameters
+        # TODO: Implement this step
+        from predictor.models import get_best_model_candidate
+
+        model = get_best_model_candidate(
+            model_candidates_from_best_to_worst=model_names
+        )
+        logger.info(f'Training model: {model}')
+        model.fit(
+            X_train,
+            y_train,
+            hyperparam_search_trials=hyperparam_search_trials,
+            hyperparam_search_n_splits=hyperparam_search_n_splits,
+        )
+        # Step 10: Evaluate the model on the test set
+        y_pred = model.predict(X_test)
+        test_mae = mean_absolute_error(y_test, y_pred)
+        mlflow.log_metric('test_mae', test_mae)
+        logger.info(f'Test MAE for the model: {test_mae:.4f}')
+        # Step 11: Log the model to MLflow
 
 
 if __name__ == '__main__':
@@ -228,7 +248,7 @@ if __name__ == '__main__':
         lookback_period=10,
         candle_seconds=60,
         prediction_horizon_seconds=300,
-        n_rows_for_data_profiling=100,
+        n_rows_for_data_profiling=30,
         eda_report_html_path='./eda_report.html',
         train_test_split_ratio=0.8,
         features=[
@@ -256,4 +276,6 @@ if __name__ == '__main__':
             'macdhist_7',
             'obv',
         ],
+        hyperparam_search_trials=50,
+        hyperparam_search_n_splits=5,
     )
