@@ -1,11 +1,18 @@
 # The training script for the predictor service.
 
-import great_expectations as ge
+from typing import Optional
+
 import mlflow
 import pandas as pd
 from loguru import logger
 from risingwave import OutputFormat, RisingWave, RisingWaveConnOptions
+from sklearn.metrics import mean_absolute_error
 from ydata_profiling import ProfileReport
+
+from predictor.data_validation import validate_data
+from predictor.model_registry import get_model_name, push_model
+from predictor.models import BaselineModel, get_model_candidates, get_model_obj
+from predictor.names import get_experiment_name
 
 
 def generate_data_exploratory_analysis_report(
@@ -25,29 +32,6 @@ def generate_data_exploratory_analysis_report(
         ts_data, tsmode=True, sortby='window_start_ms', title='Technical indicators EDA'
     )
     profile.to_file(output_html_path)
-
-
-def validate_data(ts_data: pd.DataFrame):
-    """
-    Runs a battery of validation checks on the time series data.
-    If any of the checks fails, an exception is raised, so the training process can be aborted.
-
-    Args:
-        ts_data (pd.DataFrame): input time series data to validate.
-    """
-    ge_df = ge.from_pandas(ts_data)
-    validation_result = ge_df.expect_column_values_to_be_between(
-        column='close',
-        min_value=0,
-    )
-    if not validation_result.success:
-        raise Exception("Column 'close' has values less then 0")
-
-    # TODO: Add more validation checks
-    # For example:
-    # Check for null values
-    # Check for duplicates
-    # Check the data is sorted by timestamp
 
 
 def load_ts_data_from_risingwave(
@@ -111,9 +95,13 @@ def train(
     train_test_split_ratio: float,
     n_rows_for_data_profiling: int,
     eda_report_html_path: str,
+    max_percentage_rows_with_nulls: float,
     features: list[str],
     hyperparam_search_trials: int,
     hyperparam_search_n_splits: int,
+    model_name: Optional[str] = None,
+    n_model_candidates: Optional[int] = 1,
+    max_percentage_diff_vs_baseline: Optional[float] = 0.05,
 ):
     """
     Trains a predictor for the given pair and data, and if the model is good enough, it pushes it
@@ -124,7 +112,6 @@ def train(
     logger.info(f'Setting MLflow tracking URI to {mlflow_tracking_uri}')
     mlflow.set_tracking_uri(uri=mlflow_tracking_uri)
     logger.info('Setting MLflow experiment...')
-    from predictor.names import get_experiment_name
 
     mlflow.set_experiment(
         experiment_name=get_experiment_name(
@@ -142,6 +129,11 @@ def train(
         mlflow.log_param('prediction_horizon_seconds', prediction_horizon_seconds)
         mlflow.log_param('train_test_split_ratio', train_test_split_ratio)
         mlflow.log_param('n_rows_data_profiling', n_rows_for_data_profiling)
+        if model_name:
+            mlflow.log_param('model_name', model_name)
+        mlflow.log_param(
+            'max_percentage_diff_vs_baseline', max_percentage_diff_vs_baseline
+        )
         # Step 1: Load the time series data from RisingWave
         ts_data = load_ts_data_from_risingwave(
             host=risingWave_host,
@@ -159,15 +151,15 @@ def train(
         ts_data['target'] = ts_data['close'].shift(
             -prediction_horizon_seconds // candle_seconds
         )
-        # drop the last rows with NaN target values
-        ts_data = ts_data.dropna(subset=['target'])
         # log the data to mlflow
         dataset = mlflow.data.from_pandas(ts_data)
         mlflow.log_input(dataset, context='training')
         # Log dataset size
         mlflow.log_param('ts_data shape', ts_data.shape)
         # Step 3: Validate the data
-        validate_data(ts_data)
+        ts_data = validate_data(
+            ts_data, max_percentage_rows_with_nulls=max_percentage_rows_with_nulls
+        )
         # Step 4: Profile the data
         ts_data_to_profile = (
             ts_data.head(n_rows_for_data_profiling)
@@ -197,31 +189,30 @@ def train(
         mlflow.log_param('X_test shape', X_test.shape)
         mlflow.log_param('y_test shape', y_test.shape)
         # Step 7: Train a baseline model
-        from predictor.models import BaselineModel
 
         baseline_model = BaselineModel()
         y_pred_baseline = baseline_model.predict(X_test)
-        from sklearn.metrics import mean_absolute_error
-
         test_mae_baseline = mean_absolute_error(y_test, y_pred_baseline)
         mlflow.log_metric('test_mae_baseline', test_mae_baseline)
         logger.info(f'Test MAE for baseline model: {test_mae_baseline:.4f}')
-        # Step 8: Train a set of n models to get a sense what model is supposed to be the best
-        # We use lazypredict which uses default hyperparamters for each model.
-
-        # model_scores, model_names = generate_lazypredict_model_table(X_train, y_train, X_test, y_test)
-        # model_scores.reset_index(inplace=True)
-        # mlflow.log_table(model_scores, 'model_scores_with_default_hyperparameters_2.json')
-        # logger.info(model_scores.to_string())
-        model_names = ['SomeDummyModel', 'OrthogonalMatchingPursuit']
+        # Step 8:Find the best model candidate,if model_name is not provided
+        if not model_name:
+            # We fit n_model_candidates models with default hyperparameters to
+            # find the best model candidate
+            model_names = get_model_candidates(
+                X_train,
+                y_train,
+                X_test,
+                y_test,
+                n_candidates=n_model_candidates,
+            )
+            model_name = model_names[0]
+        model = get_model_obj(model_name)
+        # TODO:modify this to use a list of model candidates and adjust their hyperparameters
+        # in the next step
         # Step 9: Pick the best model from the table and train it with the best hyperparameters
         # TODO: Implement this step
-        from predictor.models import get_best_model_candidate
-
-        model = get_best_model_candidate(
-            model_candidates_from_best_to_worst=model_names
-        )
-        logger.info(f'Training model: {model}')
+        logger.info(f'Start training model: {model} with hyperparams search')
         model.fit(
             X_train,
             y_train,
@@ -234,6 +225,27 @@ def train(
         mlflow.log_metric('test_mae', test_mae)
         logger.info(f'Test MAE for the model: {test_mae:.4f}')
         # Step 11: Log the model to MLflow
+        if (
+            test_mae - test_mae_baseline
+            <= max_percentage_diff_vs_baseline * test_mae_baseline
+        ):
+            logger.info(
+                f'Model {model_name} is good enough, pushing it to MLflow model registry.'
+            )
+            model_name = get_model_name(
+                pair=pair,
+                candle_seconds=candle_seconds,
+                prediction_horizon_seconds=prediction_horizon_seconds,
+            )
+            push_model(
+                model=model,
+                X_test=X_test,
+                model_name=model_name,
+            )
+        else:
+            logger.info(
+                f'Model {model_name} is not good enough, not pushing it to MLflow model registry.'
+            )
 
 
 if __name__ == '__main__':
@@ -278,4 +290,8 @@ if __name__ == '__main__':
         ],
         hyperparam_search_trials=50,
         hyperparam_search_n_splits=5,
+        model_name='OrthogonalMatchingPursuit',
+        n_model_candidates=10,
+        max_percentage_rows_with_nulls=0.01,  # Example parameter for data validation
+        max_percentage_diff_vs_baseline=0.05,  # Example parameter for model performance validation
     )

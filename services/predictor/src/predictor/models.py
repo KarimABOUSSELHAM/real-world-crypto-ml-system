@@ -1,8 +1,11 @@
+import os
 from typing import Optional, Union
 
+import mlflow
 import numpy as np
 import optuna
 import pandas as pd
+from lazypredict.Supervised import LazyRegressor
 from loguru import logger
 from sklearn.linear_model import OrthogonalMatchingPursuit
 from sklearn.metrics import mean_absolute_error
@@ -170,31 +173,41 @@ class OrthogonalMatchingPursuitWithHyperparameterTuning:
         return self.pipeline.predict(X)
 
 
-def generate_lazypredict_model_table(
+def get_model_candidates(
     X_train: pd.DataFrame,
     y_train: pd.Series,
     X_test: pd.DataFrame,
     y_test: pd.Series,
-) -> Union[pd.DataFrame, list[str]]:
+    n_candidates: int,
+) -> list[str]:
     """
     Uses lazypredict to fit N models with default hyperparameters for the given (X_train, y_train), and evaluate them
     with (X_test, y_test)
+    It returns a list of model names in order of preference from best to worst.
+    Args:
+        X_train (pd.DataFrame): Training features.
+        y_train (pd.Series): Training target.
+        X_test (pd.DataFrame): Test features.
+        y_test (pd.Series): Test target.
+        n_candidates (int): Number of model candidates to return.
+    Returns:
+        list[str]: List of model names in order of preference from best to worst.
     """
     # Unset the mlflow tracking URI
-    import os
-
     mlflow_tracking_uri = os.environ['MLFLOW_TRACKING_URI']
     del os.environ['MLFLOW_TRACKING_URI']
-
-    from lazypredict.Supervised import LazyRegressor
-    from sklearn.metrics import mean_absolute_error
-
+    # Fit n models with default hyperparameters
     reg = LazyRegressor(
         verbose=0, ignore_warnings=False, custom_metric=mean_absolute_error
     )
     models, _ = reg.fit(X_train, X_test, y_train, y_test)
+    models.reset_index(inplace=True)
+    # log table to mlflow experiment
+    mlflow.log_table(models, 'model_scores_with_default_hyperparameters.json')
     os.environ['MLFLOW_TRACKING_URI'] = mlflow_tracking_uri
-    return models, list(models['Model'])
+    # No need to sort top n model names because LazyPredict sorts them by default
+    models_candidates = models['Model'].tolist()[:n_candidates]
+    return models_candidates
 
 
 Model = Union[str, OrthogonalMatchingPursuitWithHyperparameterTuning]
@@ -228,3 +241,17 @@ def get_best_model_candidate(
             continue
     # TODO: handle the case when no model is found
     return model
+
+
+def get_model_obj(model_name: str) -> Model:
+    """
+    Factory function that returns a model object based on the model name.
+    Args:
+        model_name (str): Name of the model.
+    Returns:
+        Model: An instance of the model corresponding to the given name.
+    """
+    if model_name == 'OrthogonalMatchingPursuit':
+        return OrthogonalMatchingPursuitWithHyperparameterTuning()
+    else:
+        raise ValueError(f'Unknown model name: {model_name}')
