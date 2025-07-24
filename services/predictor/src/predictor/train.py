@@ -1,5 +1,6 @@
 # The training script for the predictor service.
 
+import os
 from typing import Optional
 
 import mlflow
@@ -115,14 +116,12 @@ def train(
     logger.info(f'Setting MLflow tracking URI to {mlflow_tracking_uri}')
     mlflow.set_tracking_uri(uri=mlflow_tracking_uri)
     logger.info('Setting MLflow experiment...')
-
-    mlflow.set_experiment(
-        experiment_name=get_experiment_name(
-            pair=pair,
-            candle_seconds=candle_seconds,
-            prediction_horizon_seconds=prediction_horizon_seconds,
-        )
+    experiment_name = get_experiment_name(
+        pair=pair,
+        candle_seconds=candle_seconds,
+        prediction_horizon_seconds=prediction_horizon_seconds,
     )
+    mlflow.set_experiment(experiment_name=experiment_name)
     with mlflow.start_run():
         logger.info('Started MLflow run')
         mlflow.log_param('features', features)
@@ -158,18 +157,24 @@ def train(
         # log the data to mlflow
         dataset = mlflow.data.from_pandas(ts_data)
         mlflow.log_input(dataset, context='training')
+        # Log the actual data as artifact
+        ts_data.to_csv('ts_data.csv', index=False)
+        mlflow.log_artifact('ts_data.csv', artifact_path='datasets')
+        os.remove('ts_data.csv')
         # Log dataset size
         mlflow.log_param('ts_data shape', ts_data.shape)
         # Step 3: Validate the data
         ts_data = validate_data(
             ts_data, max_percentage_rows_with_nulls=max_percentage_rows_with_nulls
         )
-        # TODO: Plot data drift of the current dataset vs the data used by the model
+        # Plot data drift of the current dataset vs the data used by the model
         # in the model registry
-        # Define a function to do so
         from predictor.data_validation import generate_data_drift_report
 
-        generate_data_drift_report(ts_data, model_name=model_name)
+        report_path = generate_data_drift_report(
+            ts_data, experiment_name=experiment_name
+        )
+        mlflow.log_artifact(local_path=report_path, artifact_path='reports')
         # Step 4: Profile the data
         ts_data_to_profile = (
             ts_data.head(n_rows_for_data_profiling)
@@ -320,7 +325,7 @@ if __name__ == '__main__':
         features=config.features,
         hyperparam_search_trials=config.hyperparam_search_trials,
         hyperparam_search_n_splits=config.hyperparam_search_n_splits,
-        model_name=None,
+        model_name=config.model_name,
         n_model_candidates=config.n_model_candidates,
         max_percentage_rows_with_nulls=config.max_percentage_rows_with_nulls,  # Example parameter for data validation
         max_percentage_diff_vs_baseline=config.max_percentage_diff_vs_baseline,  # Example parameter for model performance validation

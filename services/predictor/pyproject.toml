@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.12.11"
 dependencies = [
+    "evidently>=0.7.11",
     "great-expectations>=0.18.8",
     "lazypredict>=0.2.16",
     "mlflow>=3.1.1",
