@@ -3,6 +3,7 @@
 from typing import Optional
 
 import mlflow
+import numpy as np
 import pandas as pd
 from loguru import logger
 from risingwave import OutputFormat, RisingWave, RisingWaveConnOptions
@@ -102,7 +103,7 @@ def train(
     hyperparam_search_trials: int,
     hyperparam_search_n_splits: int,
     model_name: Optional[str] = None,
-    n_model_candidates: Optional[int] = 1,
+    n_model_candidates: Optional[int] = 10,
     max_percentage_diff_vs_baseline: Optional[float] = 0.05,
 ):
     """
@@ -163,6 +164,12 @@ def train(
         ts_data = validate_data(
             ts_data, max_percentage_rows_with_nulls=max_percentage_rows_with_nulls
         )
+        # TODO: Plot data drift of the current dataset vs the data used by the model
+        # in the model registry
+        # Define a function to do so
+        from predictor.data_validation import generate_data_drift_report
+
+        generate_data_drift_report(ts_data, model_name=model_name)
         # Step 4: Profile the data
         ts_data_to_profile = (
             ts_data.head(n_rows_for_data_profiling)
@@ -199,7 +206,12 @@ def train(
         mlflow.log_metric('test_mae_baseline', test_mae_baseline)
         logger.info(f'Test MAE for baseline model: {test_mae_baseline:.4f}')
         # Step 8:Find the best model candidate,if model_name is not provided
-        if not model_name:
+        best_model_name = None
+        best_cv_score = float('inf')  # Lower MAE is better
+        from sklearn.model_selection import TimeSeriesSplit
+
+        tscv = TimeSeriesSplit(n_splits=hyperparam_search_n_splits)
+        if model_name is None:
             # We fit n_model_candidates models with default hyperparameters to
             # find the best model candidate
             model_names = get_model_candidates(
@@ -209,24 +221,60 @@ def train(
                 y_test,
                 n_candidates=n_model_candidates,
             )
-            model_name = model_names[0]
-        model = get_model_obj(model_name)
-        # TODO:modify this to use a list of model candidates and adjust their hyperparameters
-        # in the next step
-        # Step 9: Pick the best model from the table and train it with the best hyperparameters
-        # TODO: Implement this step
-        logger.info(f'Start training model: {model} with hyperparams search')
-        model.fit(
-            X_train,
-            y_train,
-            hyperparam_search_trials=hyperparam_search_trials,
-            hyperparam_search_n_splits=hyperparam_search_n_splits,
-        )
-        # Step 10: Evaluate the model on the test set
-        y_pred = model.predict(X_test)
-        test_mae = mean_absolute_error(y_test, y_pred)
-        mlflow.log_metric('test_mae', test_mae)
-        logger.info(f'Test MAE for the model: {test_mae:.4f}')
+            # model_name = model_names[0]
+            for model_name in model_names:
+                logger.info(f'Found model candidate: {model_name}')
+                cv_mae_scores = []
+                model = get_model_obj(model_name)
+                for train_index, val_index in tscv.split(X_train):
+                    X_tr, X_val = X_train.iloc[train_index], X_train.iloc[val_index]
+                    y_tr, y_val = y_train.iloc[train_index], y_train.iloc[val_index]
+                    # TODO:modify this to use a list of model candidates and adjust their hyperparameters
+                    # in the next step
+                    # Step 9: Pick the best model from the table and train it with the best hyperparameters
+                    # TODO: Implement this step
+                    # logger.info(f'Start training model: {model} with hyperparams search')
+                    model.fit(
+                        X_tr,
+                        y_tr,
+                        hyperparam_search_trials=hyperparam_search_trials,
+                        hyperparam_search_n_splits=hyperparam_search_n_splits,
+                    )
+                    y_val_pred = model.predict(X_val)
+                    val_mae = mean_absolute_error(y_val, y_val_pred)
+                    cv_mae_scores.append(val_mae)
+                mean_cv_mae = np.mean(cv_mae_scores)
+                logger.info(f'Model candidate {model_name} CV MAE: {mean_cv_mae:.4f}')
+                # mlflow.log_metric(f'cv_mae_{model_name}', mean_cv_mae)
+                if mean_cv_mae < best_cv_score:
+                    best_cv_score = mean_cv_mae
+                    best_model_name = model_name
+            logger.info(
+                f'Best model candidate based on CV MAE: {best_model_name} with score {best_cv_score:.4f}'
+            )
+            mlflow.log_param('best_model_name', best_model_name)
+            # Now get the best model and do hyperparameter tuning on the training data
+            best_model = get_model_obj(best_model_name)
+            best_model.fit(
+                X_train,
+                y_train,
+                hyperparam_search_trials=hyperparam_search_trials,
+                hyperparam_search_n_splits=hyperparam_search_n_splits,
+            )
+            # Step 10: Final evaluation on the test set
+            y_test_pred = best_model.predict(X_test)
+            test_mae = mean_absolute_error(y_test, y_test_pred)
+            logger.info(f'Test MAE for best model {best_model_name}: {test_mae:.4f}')
+            mlflow.log_metric('test_mae', test_mae)
+        else:
+            # If model_name is provided, we use it directly
+            logger.info(f'Using provided model name: {model_name}')
+            best_model = get_model_obj(model_name)
+            best_model.fit(X_train, y_train)
+            y_test_pred = best_model.predict(X_test)
+            test_mae = mean_absolute_error(y_test, y_test_pred)
+            logger.info(f'Test MAE for model {model_name}: {test_mae:.4f}')
+            mlflow.log_metric('test_mae', test_mae)
         # Step 11: Log the model to MLflow
         if (
             test_mae - test_mae_baseline
@@ -241,7 +289,7 @@ def train(
                 prediction_horizon_seconds=prediction_horizon_seconds,
             )
             push_model(
-                model=model,
+                model=best_model,
                 X_test=X_test,
                 model_name=model_name,
             )
@@ -272,7 +320,7 @@ if __name__ == '__main__':
         features=config.features,
         hyperparam_search_trials=config.hyperparam_search_trials,
         hyperparam_search_n_splits=config.hyperparam_search_n_splits,
-        model_name=config.model_name,
+        model_name=None,
         n_model_candidates=config.n_model_candidates,
         max_percentage_rows_with_nulls=config.max_percentage_rows_with_nulls,  # Example parameter for data validation
         max_percentage_diff_vs_baseline=config.max_percentage_diff_vs_baseline,  # Example parameter for model performance validation

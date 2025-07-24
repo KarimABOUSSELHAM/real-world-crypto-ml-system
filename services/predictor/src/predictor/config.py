@@ -46,7 +46,7 @@ class TrainingConfig(BaseSettings):
     hyperparam_search_trials: int = 50
     hyperparam_search_n_splits: int = 5
     model_name: Optional[str] = 'OrthogonalMatchingPursuit'
-    n_model_candidates: int = 10
+    n_model_candidates: int = 2
     max_percentage_rows_with_nulls: float = (
         0.01  # Example parameter for data validation
     )

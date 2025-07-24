@@ -1,0 +1,223 @@
+# This manifest encodes the parameter space for the different models
+# suggested by lazypredict dependency so that a generic wrapper of each model
+# can be built with hyperparameter tuning.
+
+# Notice this yaml does not include the case of the OrthogonalMatchingPursuit model
+# which is already supported in the models script as the most likely candidate
+# for the best model.
+
+ExtraTreesRegressor:
+  n_estimators: ["int", [100, 300]]
+  max_depth: ["categorical",[None, 10, 20, 30]]
+  min_samples_split: ["int",[2, 10]]
+  min_samples_leaf: ["int",[1, 4]]
+  max_features: ["categorical",['auto', 'sqrt', 'log2']]
+
+OrthogonalMatchingPursuitCV:
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [5, 500]]
+
+Lasso:
+  alpha: ["float", [0.1, 100000]]
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [1000, 5000]]
+
+LassoLars:
+  alpha: ["float", [0.1, 100000]]
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [1000, 5000]]
+
+LarsCV:
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [500, 5000]]
+
+LassoCV:
+  alphas: ["list", [0.1, 1, 10, 100, 1000]]
+  fit_intercept: ["categorical", [True, False ]] 
+  max_iter: ["int", [1000, 5000]]
+
+PassiveAggressiveRegressor:
+  C: ["float", [0.1, 100000]]
+  max_iter: ["int", [1000, 5000]]
+  tol: ["float", [1e-3, 1e-5]]
+  fit_intercept: ["categorical", [True, False]]
+
+LassoLarsIC:
+  criterion: ["categorical", ['aic', 'bic']]
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [500, 5000]]
+
+SGDRegressor:
+  loss: ["categorical", ['squared_loss', 'huber', 'epsilon_insensitive']]
+  penalty: ["categorical", ['l2', 'l1', 'elasticnet', None]]
+  alpha: ["float", [0.0001,100]]
+  max_iter: ["int", [1000, 5000]]
+  tol: ["float", [1e-3, 1e-5]]
+  fit_intercept: ["categorical", [True, False]]
+
+RidgeCV:  
+  alphas: ["list", [0.1, 1, 10, 100, 1000]]
+  fit_intercept: ["categorical", [True, False]]
+
+Ridge:
+  alpha: ["float", [0.1, 100000]]
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [1000, 5000]]
+
+BayesianRidge: 
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [1000, 5000]]
+  alpha_1: ["float", [1e-6, 1e6]]
+  alpha_2: ["float", [1e-6, 1e6]]
+  lambda_1: ["float", [1e-6, 1e6]]
+  lambda_2: ["float", [1e-6, 1e6]]
+
+LassoLarsCV:
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [500, 5000]]
+
+TransformedTargetRegressor:
+  regressor: ["categorical", ['ExtraTreesRegressor', 'OrthogonalMatchingPursuitCV', 'Lasso', 'LassoLars', 'LarsCV', 'LassoCV', 'PassiveAggressiveRegressor', 'LassoLarsIC', 'SGDRegressor', 'RidgeCV', 'Ridge', 'BayesianRidge']]
+  transformer: ["categorical", ['StandardScaler', 'MinMaxScaler', 'RobustScaler']]
+  check_inverse: ["categorical", [True, False]]
+
+LinearRegression:
+  fit_intercept: ["categorical", [True, False]]
+
+Lars:
+  fit_intercept: ["categorical", [True, False]]
+  non_zero_coefs: ["int", [500, 10000]]
+
+ElasticNetCV:
+  alphas: ["list", [0.1, 1, 10, 100, 1000]]
+  l1_ratio: ["float", [0, 1]]
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [1000, 5000]]
+
+HuberRegressor:
+  epsilon: ["float", [1, 100000]]
+  max_iter: ["int", [1000, 5000]] 
+  alpha: ["float", [0.0001, 100]]
+  fit_intercept: ["categorical", [True, False]]
+
+RandomForestRegressor:
+  n_estimators: ["int", [100, 300]]
+  max_depth: ["categorical", [None, 10, 20, 30]]
+  min_samples_split: ["int", [2, 10]]
+  min_samples_leaf: ["int", [1, 4]]
+  max_features: ["categorical", [None, 'sqrt', 'log2']]
+
+AdaBoostRegressor:
+  n_estimators: ["int", [1, 1000]]
+  learning_rate: ["float", [0.0, 100000.0]]
+  loss: ["categorical", ['linear', 'square', 'exponential']]
+
+HistGradientBoostingRegressor:
+  max_iter: ["int", [100, 1000]]
+  max_depth: ["int", [None, 10, 20, 30]]
+  learning_rate: ["float", [0.01, 1.0]]
+  max_bins: ["int", [10, 255]]
+  min_samples_leaf: ["int", [1, 10]]
+  max_leaf_nodes: ["int", [ 31, 10000]]
+
+PoissonRegressor:
+  alpha: ["float", [0.0, 100000.0]]
+  max_iter: ["int", [1000, 5000]]
+  fit_intercept: ["categorical", [True, False]]
+
+ElasticNet:
+  alpha: ["float", [0.1, 100000]]
+  l1_ratio: ["float", [0, 1]]
+  fit_intercept: ["categorical", [True, False]]
+  max_iter: ["int", [1000, 5000]]
+
+KNeighborsRegressor:
+  n_neighbors: ["int", [1, 10]]
+  weights: ["categorical", ['uniform', 'distance']]
+
+BaggingRegressor:
+  n_estimators: ["int", [1, 1000]]
+  max_samples: ["float", [0.1, 1.0]]
+  bootstrap: ["categorical", [True, False]]
+  bootstrap_features: ["categorical", [True, False]]
+
+GradientBoostingRegressor:
+  n_estimators: ["int", [100, 300]]
+  learning_rate: ["float", [0.01, 10000]]
+  max_depth: ["int", [3, 10]]
+  min_samples_split: ["int", [2, 10]]
+  min_samples_leaf: ["int", [1, 4]]
+  max_features: ["categorical", [None, 'sqrt', 'log2']]
+
+TweedieRegressor:
+  power: ["float", [1.0, 3.0]]
+  alpha: ["float", [0.0, 100000.0]]
+  max_iter: ["int", [1000, 5000]]
+  fit_intercept: ["categorical", [True, False]]
+
+GammaRegressor:
+  alpha: ["float", [0.0, 100000.0]]
+  max_iter: ["int", [1000, 5000]]
+  fit_intercept: ["categorical", [True, False]]
+
+RANSACRegressor:
+  base_estimator: ["categorical", ['ExtraTreesRegressor', 'OrthogonalMatchingPursuitCV', 'Lasso', 'LassoLars', 'LarsCV', 'LassoCV', 'PassiveAggressiveRegressor', 'LassoLarsIC', 'SGDRegressor', 'RidgeCV', 'Ridge', 'BayesianRidge']]
+  max_trials: ["int", [10, 1000]]
+  min_samples: ["float", [0, 1.0]]
+  residual_threshold: ["float", [1e-3, 1e5]]
+
+LinearSVR:
+  C: ["float", [0.1, 100000]]
+  max_iter: ["int", [1000, 5000]]
+  loss: ["categorical", ['epsilon_insensitive', 'squared_epsilon_insensitive']]
+  fit_intercept: ["categorical", [True, False]]
+
+ExtraTreeRegressor:
+  max_depth: ["categorical", [None, 10, 20, 30]]
+  min_samples_split: ["int", [2, 10]]
+  min_samples_leaf: ["int", [1, 4]]
+  max_features: ["categorical", [None, 'sqrt', 'log2']]
+
+NuSVR:
+  C: ["float", [0.1, 100000]]
+  nu: ["float", [0.01, 0.99]]
+  kernel: ["categorical", ['linear', 'poly', 'rbf', 'sigmoid', 'precomputed']]
+  degree: ["int", [2, 5]]
+  gamma: ["categorical", ['scale', 'auto']]
+  max_iter: ["int", [1000, 5000]]
+  fit_intercept: ["categorical", [True, False]]
+
+SVR:
+  C: ["float", [0.1, 100000]] 
+  kernel: ["categorical", ['linear', 'poly', 'rbf', 'sigmoid', 'precomputed']]
+  degree: ["int", [2, 5]]
+  gamma: ["categorical", ['scale', 'auto']]
+  epsilon: ["float", [0.1, 100000]]
+
+DummyRegressor:
+  strategy: ["categorical", ['mean', 'median', 'quantile', 'constant']]
+
+DecisionTreeRegressor:
+  max_depth: ["categorical", [None, 10, 20, 30]]
+  min_samples_split: ["int", [2, 10]]
+  min_samples_leaf: ["int", [1, 4]]
+  max_features: ["categorical", [None, 'sqrt', 'log2']]
+
+GaussianProcessRegressor:
+  kernel: ["categorical", ['RBF', 'DotProduct', 'ConstantKernel']]
+  alpha: ["float", [1e-10, 1e10]]
+  n_restarts_optimizer: ["int", [0, 10]]
+  normalize_y: ["categorical", [True, False]]
+
+MLPRegressor:
+  activation: ["categorical", ['identity', 'logistic', 'tanh', 'relu']]
+  solver: ["categorical", ['lbfgs', 'sgd', 'adam']]
+  alpha: ["float", [0.0001, 100000]]
+  learning_rate: ["categorical", ['constant', 'invscaling', 'adaptive']]
+  max_iter: ["int", [200, 5000]]
+  early_stopping: ["categorical", [True, False]]
+
+KernelRidge:
+  alpha: ["float", [0.1, 100000]]
+  kernel: ["categorical", ['linear', 'poly', 'rbf', 'sigmoid', 'precomputed']]
+  degree: ["int", [2, 5]]
