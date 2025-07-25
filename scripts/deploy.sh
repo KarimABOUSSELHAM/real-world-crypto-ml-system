@@ -16,9 +16,14 @@ if [ "$env" != "dev" ] && [ "$env" != "prod" ]; then
 fi
 
 cd deployments/${env}
-eval "${direnv export bash}"
+eval "$(direnv export bash)"
 echo "KUBECONFIG=${KUBECONFIG}"
 
-# manually apply the deployment manifests
-kubectl delete -f ${service}/${service}.yaml --ignore-not-found=true
-kubectl apply -f ${service}/${service}.yaml
+# If there is a kustomization file, use Kustomize to deploy the service
+if [ -f ${service}/kustomization.yaml]; then
+    kustomize build ${service} | kubectl apply -f -
+else
+    # manually apply the deployment manifests
+    kubectl delete -f ${service}/${service}.yaml --ignore-not-found=true
+    kubectl apply -f ${service}/${service}.yaml
+fi
