@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: training-pipeline
+  namespace: rwml
+data:
+  # Credits to Marius Rugan
+  MLFLOW_TRACKING_URI: "http://user:6440921D-2493-42AA-BE40-428CD753D81D@mlflow-tracking.mlflow.svc.cluster.local:80"
+  RISINGWAVE_HOST: "risingwave.risingwave.svc.cluster.local"
+  RISINGWAVE_PORT: "4567"
+  RISINGWAVE_USER: "root"
+  RISINGWAVE_PASSWORD: ""
+  RISINGWAVE_DATABASE: "dev"
+  RISINGWAVE_TABLE: "public.technical_indicators"
+  PAIR: 'ETH/EUR'
+  LOOKBACK_PERIOD: "10"
+  CANDLE_SECONDS: "60"
+  PREDICTION_HORIZON_SECONDS: "300"
+  TRAIN_TEST_SPLIT: "0.8"
+  MAX_PERCENTAGE_ROWS_WITH_NULLS: "0.01"
+  MAX_PERCENTAGE_DIFF_VS_BASELINE: "0.05"
+  N_ROWS_FOR_DATA_PROFILING: "30"
+  EDA_REPORT_HTML_PATH: "./eda_report.html"
+  HYPERPARAM_SEARCH_N_SPLITS: "5"
+  HYPERPARAM_SEARCH_TRIALS: "50"
+  MODEL_NAME: "OrthogonalMatchingPursuit"
+  N_MODEL_CANDIDATES: "10"
+  FEATURES: "[\"open\",\"high\",\"low\",\"close\",\"window_start_ms\",\"window_end_ms\",\"volume\",\"sma_7\",\"sma_14\",\"sma_21\",\"sma_60\",\"ema_7\",\"ema_14\",\"ema_21\",\"ema_60\",\"rsi_7\",\"rsi_14\",\"rsi_21\",\"rsi_60\",\"macd_7\",\"macdsignal_7\",\"macdhist_7\",\"obv\"]"
