@@ -1,3 +1,5 @@
+from typing import Any, Optional, Tuple
+
 import mlflow
 import pandas as pd
 from loguru import logger
@@ -12,7 +14,34 @@ def get_model_name(
     """
     Generates a unique model name based on the trading pair, candle seconds, and prediction horizon.
     """
-    return f'{pair}_{candle_seconds}_{prediction_horizon_seconds}_model'
+    return (
+        f'{pair.replace("/", "-")}_{candle_seconds}_{prediction_horizon_seconds}_model'
+    )
+
+
+# TODO: Create a custom Model type to annotate the output of this function.
+def load_model(
+    model_name: str,
+    model_version: Optional[str] = 'latest',
+) -> Tuple[Any, list[str]]:
+    """
+    Loads model name with version tag from the Mlflow model registry together with the model's
+    input schema.
+
+    Args:
+        model_name (str): The name of the model to load from the Mlflow model registry.
+        model_version (Optional[str], optional): The version of the registered model. Defaults to "latest".
+    Returns:
+        model: The model object and the model's features list.
+    """
+    model = mlflow.sklearn.load_model(model_uri=f'models:/{model_name}/{model_version}')
+    # Get the model info which contains the signature
+    model_info = mlflow.models.get_model_info(
+        model_uri=f'models:/{model_name}/{model_version}'
+    )
+    # Access the signature and extract the list of model features
+    features = model_info.signature.inputs.input_names()
+    return model, features
 
 
 def push_model(

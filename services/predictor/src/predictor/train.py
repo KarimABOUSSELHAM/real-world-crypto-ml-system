@@ -14,7 +14,6 @@ from ydata_profiling import ProfileReport
 from predictor.data_validation import validate_data
 from predictor.model_registry import get_model_name, push_model
 from predictor.models import BaselineModel, get_model_candidates, get_model_obj
-from predictor.names import get_experiment_name
 
 
 def generate_data_exploratory_analysis_report(
@@ -86,11 +85,11 @@ def load_ts_data_from_risingwave(
 
 def train(
     mlflow_tracking_uri: str,
-    risingWave_host: str,
-    risingWave_port: int,
-    risingWave_user: str,
-    risingWave_password: str,
-    risingWave_database: str,
+    risingwave_host: str,
+    risingwave_port: int,
+    risingwave_user: str,
+    risingwave_password: str,
+    risingwave_database: str,
     risingwave_table: str,
     pair: str,
     lookback_period: int,
@@ -116,7 +115,7 @@ def train(
     logger.info(f'Setting MLflow tracking URI to {mlflow_tracking_uri}')
     mlflow.set_tracking_uri(uri=mlflow_tracking_uri)
     logger.info('Setting MLflow experiment...')
-    experiment_name = get_experiment_name(
+    experiment_name = get_model_name(
         pair=pair,
         candle_seconds=candle_seconds,
         prediction_horizon_seconds=prediction_horizon_seconds,
@@ -138,11 +137,11 @@ def train(
         )
         # Step 1: Load the time series data from RisingWave
         ts_data = load_ts_data_from_risingwave(
-            host=risingWave_host,
-            port=risingWave_port,
-            user=risingWave_user,
-            password=risingWave_password,
-            database=risingWave_database,
+            host=risingwave_host,
+            port=risingwave_port,
+            user=risingwave_user,
+            password=risingwave_password,
+            database=risingwave_database,
             table=risingwave_table,
             pair=pair,
             lookback_period=lookback_period,
@@ -309,11 +308,11 @@ if __name__ == '__main__':
 
     train(
         mlflow_tracking_uri=config.mlflow_tracking_uri,
-        risingWave_host=config.risingWave_host,
-        risingWave_port=config.risingWave_port,
-        risingWave_user=config.risingWave_user,
-        risingWave_password=config.risingWave_password,
-        risingWave_database=config.risingWave_database,
+        risingwave_host=config.risingwave_host,
+        risingwave_port=config.risingwave_port,
+        risingwave_user=config.risingwave_user,
+        risingwave_password=config.risingwave_password,
+        risingwave_database=config.risingwave_database,
         risingwave_table=config.risingwave_table,
         pair=config.pair,
         lookback_period=config.lookback_period,

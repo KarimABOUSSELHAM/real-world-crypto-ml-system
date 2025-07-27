@@ -5,11 +5,11 @@ from pydantic_settings import BaseSettings
 
 class TrainingConfig(BaseSettings):
     mlflow_tracking_uri: str = 'http://localhost:5000'
-    risingWave_host: str = 'localhost'
-    risingWave_port: int = 4567
-    risingWave_user: str = 'root'
-    risingWave_password: str = ''
-    risingWave_database: str = 'dev'
+    risingwave_host: str = 'localhost'
+    risingwave_port: int = 4567
+    risingwave_user: str = 'root'
+    risingwave_password: str = ''
+    risingwave_database: str = 'dev'
     risingwave_table: str = 'public.technical_indicators'
     pair: str = 'ETH/EUR'
     lookback_period: int = 10
@@ -43,15 +43,34 @@ class TrainingConfig(BaseSettings):
         'macdhist_7',
         'obv',
     ]
-    hyperparam_search_trials: int = 50
+    hyperparam_search_trials: int = 5
     hyperparam_search_n_splits: int = 5
     model_name: Optional[str] = 'OrthogonalMatchingPursuit'
     n_model_candidates: int = 2
     max_percentage_rows_with_nulls: float = (
         0.01  # Example parameter for data validation
     )
-    max_percentage_diff_vs_baseline: float = 0.05
+    max_percentage_diff_vs_baseline: float = 0.5
 
 
 train_config = TrainingConfig()
 # print(settings.model_dump())
+
+
+class PredictorConfig(BaseSettings):
+    mlflow_tracking_uri: str = 'http://localhost:5000'
+    risingwave_host: str = 'localhost'
+    risingwave_port: int = 4567
+    risingwave_user: str = 'root'
+    risingwave_password: str = ''
+    risingwave_database: str = 'dev'
+    risingwave_schema: str = 'public'
+    risingwave_input_table: str = 'technical_indicators'
+    risingwave_output_table: str = 'predictions'
+    pair: str = 'ETH/EUR'
+    prediction_horizon_seconds: int = 300
+    candle_seconds: int = 60
+    model_version: Optional[str] = 'latest'
+
+
+predictor_config = PredictorConfig()
