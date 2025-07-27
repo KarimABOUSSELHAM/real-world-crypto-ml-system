@@ -13,7 +13,7 @@ ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
 
 # Install C/C++ libraries required for building Python packages
-RUN apt-get update && apt-get install -y libgomp1
+RUN apt-get update && apt-get install -y libgomp1 git
 
 # Install dependencies from lockfile (reproducible)
 RUN --mount=type=cache,target=/root/.cache/uv \
