@@ -5,7 +5,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: training-pipeline-aed1
+  name: training-pipeline-aed2
   namespace: rwml
 spec:
   schedule: "0 * * * *" # Trigger the training every hour

@@ -11,6 +11,7 @@ dependencies = [
     "predictor",
     "quixstreams>=3.17.0",
     "requests>=2.32.4",
+    "risingwave-py",
     "ruff>=0.12.0",
     "technical-indicators",
     "websocket-client>=1.8.0",
@@ -46,6 +47,7 @@ members = [
 candles = { workspace = true }
 technical-indicators = { workspace = true }
 predictor = { workspace = true }
+risingwave-py = { git = "https://github.com/risingwavelabs/risingwave-py" }
 
 [project.optional-dependencies]
 talib = [
