@@ -227,3 +227,4 @@ auth
 
 kubeconfig
 *-secret.yaml
+.vscode
