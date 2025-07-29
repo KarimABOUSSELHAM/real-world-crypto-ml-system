@@ -1,8 +1,12 @@
 use axum::{
     extract::Query,
-    response::IntoResponse,
+    Json,
 };
-use serde::Deserialize;
+use std::env;
+use serde::{
+    Deserialize,
+    Serialize,
+};
 use sqlx::postgres::PgPoolOptions;
 
 #[derive(Deserialize)]
@@ -10,33 +14,44 @@ pub struct PredictionParams {
     pair: String,
 
 }
-pub async fn get_prediction(params: Query<PredictionParams>) -> Result<impl IntoResponse, impl IntoResponse> {
+
+#[derive(Serialize, sqlx::FromRow)]
+pub struct PredictionOutput {
+    pair: String,
+    predicted_price: f64,
+}
+
+pub async fn get_prediction(params: Query<PredictionParams>) -> Result<Json<PredictionOutput>, Json<PredictionOutput>> {
     let pair = &params.pair;
-    
+    let database_url=env::var("PREDICTION_DATABASE_URL")
+    .map_err(|_e| {
+            Json(PredictionOutput {
+                pair: pair.clone(),
+                predicted_price: -1.0, // Sentinel value to show there is an error
+            })
+        })?;
     // Create a connection pool so that we can talk to risingwave database
     let pool = PgPoolOptions::new()
         .max_connections(5)
-        .connect("postgres://root:123@localhost:4567/dev")
+        .connect(&database_url)
         .await
-        .map_err(
-            |e| format!("Connection to risingwave failed: {}", e)
-        )?;
-    // Make a simple query to return the given parameter (use a question mark `?` instead of `$1` for MySQL/MariaDB)
-    // let row: (i64,) = sqlx::query_as("SELECT $1")
-    //     .bind(150_i64)
-    //     .fetch_one(&pool).await
-    //     .map_err(|e| format!("Query error {}", e))?;
-    // assert_eq!(row.0, 150);
-    #[derive(sqlx::FromRow)]
-    struct PredictionOutput { pair: String, predicted_price: f64 }
-
+        .map_err(|_e| {
+            Json(PredictionOutput {
+                pair: pair.clone(),
+                predicted_price: -1.0, // Sentinel value to show there is an error
+            })
+        })?;
     let prediction_output = sqlx::query_as::<_, PredictionOutput>(
         "SELECT pair, predicted_price FROM predictions WHERE pair = $1"
         )
         .bind(pair)
-        .fetch_one(&pool).await.unwrap();
-    let output= format!(
-        "The price prediction for {} is {}", prediction_output.pair, prediction_output.predicted_price
-    );
-    Ok::<std::string::String, std::string::String>(output)
+        .fetch_one(&pool).await
+        .map_err(|_e| {
+            Json(PredictionOutput {
+                pair: pair.clone(),
+                predicted_price: -1.0, // Sentinel value to show there is an error
+            })
+        })?;
+
+    Ok(Json(prediction_output))
 }
