@@ -22,7 +22,7 @@ echo "KUBECONFIG=${KUBECONFIG}"
 # If there is a kustomization file, use Kustomize to deploy the service
 if [ -f "${service}/kustomization.yaml" ]; then
     echo "Deploying ${service} with kustomize"
-    kustomize build ${service} | kubectl delete -f -
+    kustomize build ${service} | kubectl delete -f - 
     kustomize build ${service} | kubectl apply -f -
 else
     # manually apply the deployment manifests

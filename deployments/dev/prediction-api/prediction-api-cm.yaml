@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prediction-api
+  namespace: rwml
+data:
+  PREDICTION_API_PORT: "8080"
+  PSQL_VIEW_NAME: "latest_predictions"
+  PSQL_HOST: "risingwave.risingwave.svc.cluster.local"
+  PSQL_PORT: "4567"
+  PSQL_DB: "dev"
+  PSQL_USER: "root"
+  PSQL_PASSWORD: ""
+  RUST_LOG: "info"

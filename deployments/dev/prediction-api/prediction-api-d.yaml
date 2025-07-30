@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prediction-api
+  namespace: rwml
+  labels:
+    app.kubernetes.io/name: prediction-api
+    app.kubernetes.io/instance: prediction-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prediction-api
+  template:
+    metadata:
+      labels:
+        app: prediction-api
+    spec:
+      containers:
+      - name: prediction-api
+        image: prediction-api:dev
+        imagePullPolicy: Never # Use the local image
+        env:
+        #
+        - name: PREDICTION_API_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: PREDICTION_API_PORT
+        #
+        - name: PSQL_VIEW_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: PSQL_VIEW_NAME
+        #
+        - name: PSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: PSQL_HOST
+        #
+        - name: PSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: PSQL_PORT
+        #
+        - name: PSQL_DB
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: PSQL_DB
+        #
+        - name: PSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: PSQL_USER
+        #
+        - name: PSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: PSQL_PASSWORD
+        #
+        - name: RUST_LOG
+          valueFrom:
+            configMapKeyRef:
+              name: prediction-api
+              key: RUST_LOG
