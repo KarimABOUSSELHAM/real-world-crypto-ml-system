@@ -3,8 +3,8 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS base-deps
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock ./
-
+# COPY pyproject.toml uv.lock ./
+COPY pyproject.toml ./
 RUN apt-get update && apt-get install -y libgomp1 build-essential git \
 # && uv sync --locked --no-install-project --no-dev \
 && apt-get clean && rm -rf /var/lib/apt/lists/*

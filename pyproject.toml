@@ -49,6 +49,11 @@ technical-indicators = { workspace = true }
 predictor = { workspace = true }
 risingwave-py = { git = "https://github.com/risingwavelabs/risingwave-py" }
 
+[dependency-groups]
+dev = [
+    "deptry>=0.23.1",
+]
+
 [project.optional-dependencies]
 talib = [
     "ta-lib>=0.6.4",
