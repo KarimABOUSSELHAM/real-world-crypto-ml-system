@@ -6,14 +6,19 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "candles",
+    "databases[asyncpg]>=0.9.0",
+    "fastapi>=0.116.1",
     "loguru>=0.7.3",
     "pre-commit>=4.2.0",
     "predictor",
+    "psycopg2-binary>=2.9.10",
     "quixstreams>=3.17.0",
     "requests>=2.32.4",
     "risingwave-py",
     "ruff>=0.12.0",
+    "sqlalchemy>=2.0.42",
     "technical-indicators",
+    "uvicorn>=0.35.0",
     "websocket-client>=1.8.0",
 ]
 
@@ -41,10 +46,12 @@ members = [
     "services/candles",
     "services/technical_indicators",
     "services/predictor",
+    "services/prediction_api_py",
 ]
 
 [tool.uv.sources]
 candles = { workspace = true }
+prediction_api_py ={ workspace = true }
 technical-indicators = { workspace = true }
 predictor = { workspace = true }
 risingwave-py = { git = "https://github.com/risingwavelabs/risingwave-py" }

@@ -1,0 +1,1 @@
+DROP materialized view if exists :view_name;
