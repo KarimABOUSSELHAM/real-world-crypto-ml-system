@@ -10,7 +10,7 @@ export const options = {
 };
 
 export default function () {
-    const url = 'http://127.0.0.1:3001/prediction?pair=ETH/EUR'; // For the python prediction
+    const url = 'http://127.0.0.1:8000/prediction?pair=ETH/EUR'; // For the python prediction
     // API I used the port 8000
     const res = http.get(url);
 

@@ -1,0 +1,1012 @@
+notify-rs poll   121183 16831.731727:   10101010 cpu-clock:ppp: 
+	ffffffff8308d8f1 _raw_spin_unlock_irqrestore+0x21 ([kernel.kallsyms])
+	ffffffff82409373 get_partial_node.part.0+0x213 ([kernel.kallsyms])
+	ffffffff82409beb ___slab_alloc+0x6db ([kernel.kallsyms])
+	ffffffff82409ebb __slab_alloc.constprop.0+0x5b ([kernel.kallsyms])
+	ffffffff8240c97f __kmem_cache_alloc_node+0x24f ([kernel.kallsyms])
+	ffffffff8238ccd6 __kmalloc+0x56 ([kernel.kallsyms])
+	ffffffff8251f912 ext4_htree_store_dirent+0x42 ([kernel.kallsyms])
+	ffffffff8255b4c8 htree_dirblock_to_tree+0x1a8 ([kernel.kallsyms])
+	ffffffff8255cad6 ext4_htree_fill_tree+0xe6 ([kernel.kallsyms])
+	ffffffff8251f609 ext4_readdir+0x789 ([kernel.kallsyms])
+	ffffffff824691ee iterate_dir+0x9e ([kernel.kallsyms])
+	ffffffff82469d94 __x64_sys_getdents64+0x84 ([kernel.kallsyms])
+	ffffffff820051f7 x64_sys_call+0x19d7 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ed937 getdents64+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe1437f <std::sys::fs::unix::ReadDir as core::iter::traits::iterator::Iterator>::next+0x3f (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fe0caf6 <std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next+0x16 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fde97f1 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x191 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 16888.963364:   10101010 cpu-clock:ppp: 
+	    7474508ec95b clock_gettime+0xb (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fdb0be9 _rust_notify::RustNotify::watch+0x589 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 16955.027738:   10101010 cpu-clock:ppp: 
+	    74744fe10b60 std::time::SystemTime::now+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 16955.664470:   10101010 cpu-clock:ppp: 
+	ffffffff82832080 lockref_put_return+0x30 ([kernel.kallsyms])
+	ffffffff8245bd6a path_put+0x1a ([kernel.kallsyms])
+	ffffffff824546d8 vfs_statx+0x108 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+uvicorn  121179 16965.236448:   10101010 cpu-clock:ppp: 
+	    747450cfc820 __tls_get_addr+0x0 (/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+
+notify-rs poll   121183 16986.185838:   10101010 cpu-clock:ppp: 
+	ffffffff82471d6f __d_lookup_rcu+0x6f ([kernel.kallsyms])
+	ffffffff8245ddec lookup_fast+0x2c ([kernel.kallsyms])
+	ffffffff82462461 path_openat+0x111 ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 16986.552593:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17029.496445:   10101010 cpu-clock:ppp: 
+	    74744fe1079f std::path::Path::components+0xf (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdd6b4a <Q as hashbrown::Equivalent<K>>::equivalent+0x3a (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17038.117412:   10101010 cpu-clock:ppp: 
+	    74744fddd262 std::sys::backtrace::__rust_begin_short_backtrace+0x2b2 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	        26653800 [unknown] ([unknown])
+
+uvicorn  121179 17058.540428:   10101010 cpu-clock:ppp: 
+	         1ac633a take_gil.llvm.15983506955339702762+0x120 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 17062.233650:   10101010 cpu-clock:ppp: 
+	    74745092725d syscall+0x1d (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fde105b std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xdb (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17083.020778:   10101010 cpu-clock:ppp: 
+	ffffffff8240c84e __kmem_cache_alloc_node+0x11e ([kernel.kallsyms])
+	ffffffff8238ccd6 __kmalloc+0x56 ([kernel.kallsyms])
+	ffffffff8251f912 ext4_htree_store_dirent+0x42 ([kernel.kallsyms])
+	ffffffff8255b4c8 htree_dirblock_to_tree+0x1a8 ([kernel.kallsyms])
+	ffffffff8255cad6 ext4_htree_fill_tree+0xe6 ([kernel.kallsyms])
+	ffffffff8251f609 ext4_readdir+0x789 ([kernel.kallsyms])
+	ffffffff824691ee iterate_dir+0x9e ([kernel.kallsyms])
+	ffffffff82469d94 __x64_sys_getdents64+0x84 ([kernel.kallsyms])
+	ffffffff820051f7 x64_sys_call+0x19d7 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ed937 getdents64+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe1437f <std::sys::fs::unix::ReadDir as core::iter::traits::iterator::Iterator>::next+0x3f (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fe0caf6 <std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next+0x16 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fde97f1 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x191 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17104.617230:   10101010 cpu-clock:ppp: 
+	    74744fe0b8c0 std::thread::sleep+0x50 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17105.173968:   10101010 cpu-clock:ppp: 
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17109.764388:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17118.442348:   10101010 cpu-clock:ppp: 
+	         1a119f7 method_vectorcall.llvm.15835016122738116242+0xf7 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17124.893514:   10101010 cpu-clock:ppp: 
+	    7474508ed9a4 readdir64+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe143ba <std::sys::fs::unix::ReadDir as core::iter::traits::iterator::Iterator>::next+0x7a (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fe0caf6 <std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next+0x16 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fde97f1 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x191 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17126.748681:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17128.755756:   10101010 cpu-clock:ppp: 
+	         1a11900 method_vectorcall.llvm.15835016122738116242+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17133.504616:   10101010 cpu-clock:ppp: 
+	         1bbb400 PyObject_IsTrue+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 17146.239574:   10101010 cpu-clock:ppp: 
+	ffffffff8308d8f1 _raw_spin_unlock_irqrestore+0x21 ([kernel.kallsyms])
+	ffffffff821e5b22 hrtimer_start_range_ns+0x142 ([kernel.kallsyms])
+	ffffffff821e5ddf hrtimer_sleeper_start_expires+0x1f ([kernel.kallsyms])
+	ffffffff822023d4 futex_wait_queue+0x54 ([kernel.kallsyms])
+	ffffffff82202a55 futex_wait+0x155 ([kernel.kallsyms])
+	ffffffff821feefc do_futex+0x13c ([kernel.kallsyms])
+	ffffffff821ff02c __x64_sys_futex+0x7c ([kernel.kallsyms])
+	ffffffff820051d6 x64_sys_call+0x19b6 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745092725d syscall+0x1d (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fde105b std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xdb (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17162.756916:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17176.970790:   10101010 cpu-clock:ppp: 
+	    74744fdc1700 <pyo3::gil::SuspendGIL as core::ops::drop::Drop>::drop+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17179.937535:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17182.119084:   10101010 cpu-clock:ppp: 
+	    74744fdb09f3 _rust_notify::RustNotify::watch+0x393 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17202.770192:   10101010 cpu-clock:ppp: 
+	    74744fdbbac0 <pyo3::instance::Bound<pyo3::types::any::PyAny> as pyo3::types::any::PyAnyMethods>::is_truthy+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17205.586975:   10101010 cpu-clock:ppp: 
+	ffffffff824480ff do_sys_openat2+0x1f ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 17212.105193:   10101010 cpu-clock:ppp: 
+	ffffffff83075444 __get_user_8+0x14 ([kernel.kallsyms])
+	ffffffff821d37e0 exit_to_user_mode_prepare+0x110 ([kernel.kallsyms])
+	ffffffff8307e70a syscall_exit_to_user_mode+0x2a ([kernel.kallsyms])
+	ffffffff830785b7 do_syscall_64+0x67 ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17213.071199:   10101010 cpu-clock:ppp: 
+	    74744fe1079f std::path::Path::components+0xf (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdd6b4a <Q as hashbrown::Equivalent<K>>::equivalent+0x3a (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17295.402081:   10101010 cpu-clock:ppp: 
+	    74744fdd70e8 _ZN71_$LT$std..hash..random..DefaultHasher$u20$as$u20$core..hash..Hasher$GT$5write17h9353d959393c0ae0E.llvm.8806174473595887558+0xd8 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17302.056089:   10101010 cpu-clock:ppp: 
+	ffffffff8308d8f1 _raw_spin_unlock_irqrestore+0x21 ([kernel.kallsyms])
+	ffffffff821e5b22 hrtimer_start_range_ns+0x142 ([kernel.kallsyms])
+	ffffffff821e5ddf hrtimer_sleeper_start_expires+0x1f ([kernel.kallsyms])
+	ffffffff822023d4 futex_wait_queue+0x54 ([kernel.kallsyms])
+	ffffffff82202a55 futex_wait+0x155 ([kernel.kallsyms])
+	ffffffff821feefc do_futex+0x13c ([kernel.kallsyms])
+	ffffffff821ff02c __x64_sys_futex+0x7c ([kernel.kallsyms])
+	ffffffff820051d6 x64_sys_call+0x19b6 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745092725d syscall+0x1d (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fde105b std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xdb (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17310.197376:   10101010 cpu-clock:ppp: 
+	    74744fdc0830 <pyo3::pycell::impl_::BorrowChecker as pyo3::pycell::impl_::PyClassBorrowChecker>::try_borrow+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17337.923847:   10101010 cpu-clock:ppp: 
+	         1a12f2a _PyEval_EvalFrameDefault+0xb2a (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17344.326955:   10101010 cpu-clock:ppp: 
+	         1a11be2 _PyFunction_Vectorcall+0x22 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+	               0 [unknown] ([unknown])
+
+uvicorn  121179 17352.268835:   10101010 cpu-clock:ppp: 
+	    747450989400 [unknown] (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17355.898627:   10101010 cpu-clock:ppp: 
+	    74744fdec590 alloc::raw_vec::RawVec<T,A>::grow_one+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+notify-rs poll   121183 17358.948268:   10101010 cpu-clock:ppp: 
+	ffffffff82471d6f __d_lookup_rcu+0x6f ([kernel.kallsyms])
+	ffffffff8245ddec lookup_fast+0x2c ([kernel.kallsyms])
+	ffffffff824614fc walk_component+0x2c ([kernel.kallsyms])
+	ffffffff824621ee path_lookupat+0x6e ([kernel.kallsyms])
+	ffffffff82463873 filename_lookup+0xd3 ([kernel.kallsyms])
+	ffffffff82454660 vfs_statx+0x90 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17363.385265:   10101010 cpu-clock:ppp: 
+	ffffffff824a1a69 make_vfsuid+0x9 ([kernel.kallsyms])
+	ffffffff824621be path_lookupat+0x3e ([kernel.kallsyms])
+	ffffffff82463873 filename_lookup+0xd3 ([kernel.kallsyms])
+	ffffffff82454660 vfs_statx+0x90 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+uvicorn  121179 17364.189470:   10101010 cpu-clock:ppp: 
+	    7474508a1a70 pthread_mutex_unlock+0x0 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17399.976078:   10101010 cpu-clock:ppp: 
+	ffffffff8308d8f1 _raw_spin_unlock_irqrestore+0x21 ([kernel.kallsyms])
+	ffffffff821e5b22 hrtimer_start_range_ns+0x142 ([kernel.kallsyms])
+	ffffffff821e5ddf hrtimer_sleeper_start_expires+0x1f ([kernel.kallsyms])
+	ffffffff822023d4 futex_wait_queue+0x54 ([kernel.kallsyms])
+	ffffffff82202a55 futex_wait+0x155 ([kernel.kallsyms])
+	ffffffff821feefc do_futex+0x13c ([kernel.kallsyms])
+	ffffffff821ff02c __x64_sys_futex+0x7c ([kernel.kallsyms])
+	ffffffff820051d6 x64_sys_call+0x19b6 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745092725d syscall+0x1d (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fde105b std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xdb (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17408.568817:   10101010 cpu-clock:ppp: 
+	ffffffff821bbaeb __srcu_read_lock+0xb ([kernel.kallsyms])
+	ffffffff824adf1a fsnotify_find_mark+0x1a ([kernel.kallsyms])
+	ffffffff824af3ae dnotify_flush+0x4e ([kernel.kallsyms])
+	ffffffff824451ef filp_flush+0x4f ([kernel.kallsyms])
+	ffffffff82448c78 __x64_sys_close+0x38 ([kernel.kallsyms])
+	ffffffff820050a2 x64_sys_call+0x1882 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c60b __close_nocancel+0xb (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fdfba64 alloc::sync::Arc<T,A>::drop_slow+0x14 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeacf9 walkdir::IntoIter::pop+0xa9 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17414.391894:   10101010 cpu-clock:ppp: 
+	    7474508ad650 malloc+0x0 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+
+notify-rs poll   121183 17427.698408:   10101010 cpu-clock:ppp: 
+	ffffffff824789cd alloc_fd+0x6d ([kernel.kallsyms])
+	ffffffff82478b2d get_unused_fd_flags+0x2d ([kernel.kallsyms])
+	ffffffff82448158 do_sys_openat2+0x78 ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 17437.145341:   10101010 cpu-clock:ppp: 
+	         1a12f2a _PyEval_EvalFrameDefault+0xb2a (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 17452.864041:   10101010 cpu-clock:ppp: 
+	ffffffff82841a34 _copy_to_user+0x24 ([kernel.kallsyms])
+	ffffffff82454121 cp_statx+0x1a1 ([kernel.kallsyms])
+	ffffffff82455382 do_statx+0x62 ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17455.358768:   10101010 cpu-clock:ppp: 
+	ffffffff8245c906 inode_permission+0x16 ([kernel.kallsyms])
+	ffffffff82461729 link_path_walk.part.0.constprop.0+0xc9 ([kernel.kallsyms])
+	ffffffff824621be path_lookupat+0x3e ([kernel.kallsyms])
+	ffffffff82463873 filename_lookup+0xd3 ([kernel.kallsyms])
+	ffffffff82454660 vfs_statx+0x90 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17463.676727:   10101010 cpu-clock:ppp: 
+	ffffffff82192890 in_lock_functions+0x0 ([kernel.kallsyms])
+	ffffffff820ab9f7 __virt_addr_valid+0x97 ([kernel.kallsyms])
+	ffffffff82440c78 __check_object_size+0x88 ([kernel.kallsyms])
+	ffffffff828edbe2 strncpy_from_user+0x52 ([kernel.kallsyms])
+	ffffffff8245ccac getname_flags.part.0+0x4c ([kernel.kallsyms])
+	ffffffff82463445 getname_flags+0x45 ([kernel.kallsyms])
+	ffffffff82455416 __x64_sys_statx+0x56 ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+uvicorn  121179 17469.775891:   10101010 cpu-clock:ppp: 
+	ffffffff8308d8f1 _raw_spin_unlock_irqrestore+0x21 ([kernel.kallsyms])
+	ffffffff823cc0b3 free_pcppages_bulk+0x1e3 ([kernel.kallsyms])
+	ffffffff823cc4ea free_unref_page_commit+0xda ([kernel.kallsyms])
+	ffffffff823cdf81 free_unref_page+0xd1 ([kernel.kallsyms])
+	ffffffff823ce22e __free_pages+0xde ([kernel.kallsyms])
+	ffffffff823ce291 free_pages+0x41 ([kernel.kallsyms])
+	ffffffff820aad50 pgd_free+0xb0 ([kernel.kallsyms])
+	ffffffff8210d992 __mmdrop+0x62 ([kernel.kallsyms])
+	ffffffff8215c185 finish_task_switch.isra.0+0x1b5 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17481.714204:   10101010 cpu-clock:ppp: 
+	         1a12f4a _PyEval_EvalFrameDefault+0xb4a (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 17490.565102:   10101010 cpu-clock:ppp: 
+	ffffffff82488815 inode_query_iversion+0x45 ([kernel.kallsyms])
+	ffffffff8251f5e9 ext4_readdir+0x769 ([kernel.kallsyms])
+	ffffffff824691ee iterate_dir+0x9e ([kernel.kallsyms])
+	ffffffff82469d94 __x64_sys_getdents64+0x84 ([kernel.kallsyms])
+	ffffffff820051f7 x64_sys_call+0x19d7 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ed937 getdents64+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe1437f <std::sys::fs::unix::ReadDir as core::iter::traits::iterator::Iterator>::next+0x3f (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fe0caf6 <std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next+0x16 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fde97f1 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x191 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17495.006896:   10101010 cpu-clock:ppp: 
+	    7474508ec962 clock_gettime+0x12 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fdb0be9 _rust_notify::RustNotify::watch+0x589 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17502.336052:   10101010 cpu-clock:ppp: 
+	         1a020c0 module_methods+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17506.340612:   10101010 cpu-clock:ppp: 
+	         1a12440 _PyEval_EvalFrameDefault+0x40 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17506.925561:   10101010 cpu-clock:ppp: 
+	ffffffff82471d6b __d_lookup_rcu+0x6b ([kernel.kallsyms])
+	ffffffff8245ddec lookup_fast+0x2c ([kernel.kallsyms])
+	ffffffff824614fc walk_component+0x2c ([kernel.kallsyms])
+	ffffffff824621ee path_lookupat+0x6e ([kernel.kallsyms])
+	ffffffff82463873 filename_lookup+0xd3 ([kernel.kallsyms])
+	ffffffff82454660 vfs_statx+0x90 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17508.037995:   10101010 cpu-clock:ppp: 
+	ffffffff82832188 lockref_get_not_dead+0x38 ([kernel.kallsyms])
+	ffffffff8245c12d __legitimize_path+0x2d ([kernel.kallsyms])
+	ffffffff8245dd1a try_to_unlazy+0x3a ([kernel.kallsyms])
+	ffffffff8245df14 complete_walk+0x44 ([kernel.kallsyms])
+	ffffffff82462cac path_openat+0x95c ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 17528.134269:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17557.980606:   10101010 cpu-clock:ppp: 
+	         1ac633a take_gil.llvm.15983506955339702762+0x120 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17559.372949:   10101010 cpu-clock:ppp: 
+	    74744fdc0833 <pyo3::pycell::impl_::BorrowChecker as pyo3::pycell::impl_::PyClassBorrowChecker>::try_borrow+0x3 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17560.955098:   10101010 cpu-clock:ppp: 
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17587.403073:   10101010 cpu-clock:ppp: 
+	    74744fde9ae9 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x489 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17597.287803:   10101010 cpu-clock:ppp: 
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17597.941156:   10101010 cpu-clock:ppp: 
+	    74744fdd5f70 hashbrown::map::HashMap<K,V,S,A>::insert+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17659.080213:   10101010 cpu-clock:ppp: 
+	         1a11c1e _PyFunction_Vectorcall+0x5e (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17663.379308:   10101010 cpu-clock:ppp: 
+	ffffffff8245c684 generic_permission+0x34 ([kernel.kallsyms])
+	ffffffff8245c934 inode_permission+0x44 ([kernel.kallsyms])
+	ffffffff82461729 link_path_walk.part.0.constprop.0+0xc9 ([kernel.kallsyms])
+	ffffffff824621be path_lookupat+0x3e ([kernel.kallsyms])
+	ffffffff82463873 filename_lookup+0xd3 ([kernel.kallsyms])
+	ffffffff82454660 vfs_statx+0x90 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb9e7 walkdir::dent::DirEntry::from_path+0xa7 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17666.044989:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17673.987812:   10101010 cpu-clock:ppp: 
+	    74744fe0b8c0 std::thread::sleep+0x50 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17681.886024:   10101010 cpu-clock:ppp: 
+	    7474508eca8f clock_nanosleep+0x6f (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17687.511582:   10101010 cpu-clock:ppp: 
+	ffffffff82471d6f __d_lookup_rcu+0x6f ([kernel.kallsyms])
+	ffffffff8245ddec lookup_fast+0x2c ([kernel.kallsyms])
+	ffffffff824614fc walk_component+0x2c ([kernel.kallsyms])
+	ffffffff824618a0 link_path_walk.part.0.constprop.0+0x240 ([kernel.kallsyms])
+	ffffffff824621be path_lookupat+0x3e ([kernel.kallsyms])
+	ffffffff82463873 filename_lookup+0xd3 ([kernel.kallsyms])
+	ffffffff82454660 vfs_statx+0x90 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+uvicorn  121179 17698.091372:   10101010 cpu-clock:ppp: 
+	         1a12f19 _PyEval_EvalFrameDefault+0xb19 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 17715.852799:   10101010 cpu-clock:ppp: 
+	ffffffff82737030 security_current_getsecid_subj+0x0 ([kernel.kallsyms])
+	ffffffff82462544 path_openat+0x1f4 ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 17762.060470:   10101010 cpu-clock:ppp: 
+	    74744fdc16d0 pyo3::gil::SuspendGIL::new+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17763.539957:   10101010 cpu-clock:ppp: 
+	ffffffff827419bc inode_has_perm+0x3c ([kernel.kallsyms])
+	ffffffff8274bd4d selinux_inode_getattr+0x9d ([kernel.kallsyms])
+	ffffffff8273a496 security_inode_getattr+0x36 ([kernel.kallsyms])
+	ffffffff82454670 vfs_statx+0xa0 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb9e7 walkdir::dent::DirEntry::from_path+0xa7 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17763.823700:   10101010 cpu-clock:ppp: 
+	         1bbb400 PyObject_IsTrue+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17778.137025:   10101010 cpu-clock:ppp: 
+	    74744fdb09f3 _rust_notify::RustNotify::watch+0x393 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17781.901629:   10101010 cpu-clock:ppp: 
+	    7474508f9a2b __nanosleep+0x1b (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17791.822113:   10101010 cpu-clock:ppp: 
+	ffffffff821bbae0 __srcu_read_lock+0x0 ([kernel.kallsyms])
+	ffffffff824adf1a fsnotify_find_mark+0x1a ([kernel.kallsyms])
+	ffffffff824af3ae dnotify_flush+0x4e ([kernel.kallsyms])
+	ffffffff824451ef filp_flush+0x4f ([kernel.kallsyms])
+	ffffffff82448c78 __x64_sys_close+0x38 ([kernel.kallsyms])
+	ffffffff820050a2 x64_sys_call+0x1882 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c60b __close_nocancel+0xb (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fdfba64 alloc::sync::Arc<T,A>::drop_slow+0x14 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeacf9 walkdir::IntoIter::pop+0xa9 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17803.466779:   10101010 cpu-clock:ppp: 
+	    74744fdea175 walkdir::IntoIter::handle_entry+0x4a5 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17804.168774:   10101010 cpu-clock:ppp: 
+	    74744fe0b8c0 std::thread::sleep+0x50 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17807.625738:   10101010 cpu-clock:ppp: 
+	    74744fe115f0 _RNvCscSpY9Juk0HT_7___rustc11___rdl_alloc+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17812.201946:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff822023ea futex_wait_queue+0x6a ([kernel.kallsyms])
+	ffffffff82202a55 futex_wait+0x155 ([kernel.kallsyms])
+	ffffffff821feefc do_futex+0x13c ([kernel.kallsyms])
+	ffffffff821ff02c __x64_sys_futex+0x7c ([kernel.kallsyms])
+	ffffffff820051d6 x64_sys_call+0x19b6 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    747450898d71 [unknown] (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508a4d93 [unknown] (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	         1c66cb4 PyThread_acquire_lock_timed.warm+0x1a8 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17815.927002:   10101010 cpu-clock:ppp: 
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17821.233057:   10101010 cpu-clock:ppp: 
+	    74744fe0b870 std::thread::sleep+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17836.951530:   10101010 cpu-clock:ppp: 
+	ffffffff821f0004 common_nsleep+0x4 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17842.400956:   10101010 cpu-clock:ppp: 
+	         1a5616f _PyObject_VectorcallTstate.llvm.8953330587472257213+0x1b (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 17852.287933:   10101010 cpu-clock:ppp: 
+	ffffffff8274938c selinux_inode_permission+0xcc ([kernel.kallsyms])
+	ffffffff8273a426 security_inode_permission+0x36 ([kernel.kallsyms])
+	ffffffff8245c964 inode_permission+0x74 ([kernel.kallsyms])
+	ffffffff82461729 link_path_walk.part.0.constprop.0+0xc9 ([kernel.kallsyms])
+	ffffffff824621be path_lookupat+0x3e ([kernel.kallsyms])
+	ffffffff82463873 filename_lookup+0xd3 ([kernel.kallsyms])
+	ffffffff82454660 vfs_statx+0x90 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb9e7 walkdir::dent::DirEntry::from_path+0xa7 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17855.637437:   10101010 cpu-clock:ppp: 
+	         1a11cf7 _PyFunction_Vectorcall+0x137 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+	         18318d8 [unknown] ([unknown])
+
+notify-rs poll   121183 17864.226477:   10101010 cpu-clock:ppp: 
+	    747450988a00 [unknown] (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe143f7 <std::sys::fs::unix::ReadDir as core::iter::traits::iterator::Iterator>::next+0xb7 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fe0caf6 <std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next+0x16 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fde97f1 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x191 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17869.759257:   10101010 cpu-clock:ppp: 
+	    74744fdc1700 <pyo3::gil::SuspendGIL as core::ops::drop::Drop>::drop+0x0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 17872.823344:   10101010 cpu-clock:ppp: 
+	    74744fdc0864 <pyo3::pycell::impl_::BorrowChecker as pyo3::pycell::impl_::PyClassBorrowChecker>::release_borrow+0x4 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17875.874002:   10101010 cpu-clock:ppp: 
+	ffffffff825313a7 str2hashbuf_signed+0x87 ([kernel.kallsyms])
+	ffffffff825316c4 ext4fs_dirhash+0x224 ([kernel.kallsyms])
+	ffffffff8255b553 htree_dirblock_to_tree+0x233 ([kernel.kallsyms])
+	ffffffff8255cad6 ext4_htree_fill_tree+0xe6 ([kernel.kallsyms])
+	ffffffff8251f609 ext4_readdir+0x789 ([kernel.kallsyms])
+	ffffffff824691ee iterate_dir+0x9e ([kernel.kallsyms])
+	ffffffff82469d94 __x64_sys_getdents64+0x84 ([kernel.kallsyms])
+	ffffffff820051f7 x64_sys_call+0x19d7 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ed937 getdents64+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe1437f <std::sys::fs::unix::ReadDir as core::iter::traits::iterator::Iterator>::next+0x3f (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fe0caf6 <std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next+0x16 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fde97f1 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x191 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17882.528596:   10101010 cpu-clock:ppp: 
+	ffffffff82832080 lockref_put_return+0x30 ([kernel.kallsyms])
+	ffffffff8245bd6a path_put+0x1a ([kernel.kallsyms])
+	ffffffff824546d8 vfs_statx+0x108 ([kernel.kallsyms])
+	ffffffff8245536f do_statx+0x4f ([kernel.kallsyms])
+	ffffffff8245542d __x64_sys_statx+0x6d ([kernel.kallsyms])
+	ffffffff82004c32 x64_sys_call+0x1412 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091bf1e statx+0xe (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe15359 std::sys::fs::unix::lstat+0x89 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdeb7a1 walkdir::dent::DirEntry::metadata+0x61 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 17921.899703:   10101010 cpu-clock:ppp: 
+	ffffffff8273b160 security_file_open+0x0 ([kernel.kallsyms])
+	ffffffff82447e77 vfs_open+0x37 ([kernel.kallsyms])
+	ffffffff82462e29 path_openat+0xad9 ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+notify-rs poll   121183 17930.779400:   10101010 cpu-clock:ppp: 
+	ffffffff8240a62b kmem_cache_alloc+0x3b ([kernel.kallsyms])
+	ffffffff8273ad5d security_file_alloc+0x2d ([kernel.kallsyms])
+	ffffffff8244e343 init_file+0x33 ([kernel.kallsyms])
+	ffffffff8244e94b alloc_empty_file+0x6b ([kernel.kallsyms])
+	ffffffff8246239d path_openat+0x4d ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 17941.898771:   10101010 cpu-clock:ppp: 
+	         1ac6014 drop_gil.llvm.15983506955339702762+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17946.082570:   10101010 cpu-clock:ppp: 
+	         1a12f56 _PyEval_EvalFrameDefault+0xb56 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17951.795949:   10101010 cpu-clock:ppp: 
+	         1a56154 _PyObject_VectorcallTstate.llvm.8953330587472257213+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+uvicorn  121179 17956.533384:   10101010 cpu-clock:ppp: 
+	ffffffff83085c1f __schedule+0x4f ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17967.099869:   10101010 cpu-clock:ppp: 
+	ffffffff824ac787 __fsnotify_parent+0x107 ([kernel.kallsyms])
+	ffffffff8244559f do_dentry_open+0x31f ([kernel.kallsyms])
+	ffffffff82447e77 vfs_open+0x37 ([kernel.kallsyms])
+	ffffffff82462e29 path_openat+0xad9 ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 17981.072350:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 17985.399997:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff822023ea futex_wait_queue+0x6a ([kernel.kallsyms])
+	ffffffff82202a55 futex_wait+0x155 ([kernel.kallsyms])
+	ffffffff821feefc do_futex+0x13c ([kernel.kallsyms])
+	ffffffff821ff02c __x64_sys_futex+0x7c ([kernel.kallsyms])
+	ffffffff820051d6 x64_sys_call+0x19b6 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745092725d syscall+0x1d (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fde105b std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xdb (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 18003.338299:   10101010 cpu-clock:ppp: 
+	    747450989400 [unknown] (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	               0 [unknown] ([unknown])
+
+notify-rs poll   121183 18011.194655:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff822023ea futex_wait_queue+0x6a ([kernel.kallsyms])
+	ffffffff82202a55 futex_wait+0x155 ([kernel.kallsyms])
+	ffffffff821feefc do_futex+0x13c ([kernel.kallsyms])
+	ffffffff821ff02c __x64_sys_futex+0x7c ([kernel.kallsyms])
+	ffffffff820051d6 x64_sys_call+0x19b6 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745092725d syscall+0x1d (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fde105b std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xdb (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 18011.336575:   10101010 cpu-clock:ppp: 
+	ffffffff83075444 __get_user_8+0x14 ([kernel.kallsyms])
+	ffffffff821d37e0 exit_to_user_mode_prepare+0x110 ([kernel.kallsyms])
+	ffffffff8307e70a syscall_exit_to_user_mode+0x2a ([kernel.kallsyms])
+	ffffffff830785b7 do_syscall_64+0x67 ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 18022.303044:   10101010 cpu-clock:ppp: 
+	    74745089fff7 pthread_mutex_lock+0x7 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	         19c1ba0 [unknown] ([unknown])
+
+uvicorn  121179 18036.342319:   10101010 cpu-clock:ppp: 
+	         1bbb400 PyObject_IsTrue+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 18038.122592:   10101010 cpu-clock:ppp: 
+	    74744fdd6d29 <std::path::Path as core::hash::Hash>::hash+0x39 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 18040.063915:   10101010 cpu-clock:ppp: 
+	    74744fde1020 std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xa0 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 18053.648809:   10101010 cpu-clock:ppp: 
+	    74744fde105f std::sync::mpmc::list::Channel$LT$T$GT$::recv::_$u7b$$u7b$closure$u7d$$u7d$::h30814dc94dcab7df+0xdf (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 18061.132907:   10101010 cpu-clock:ppp: 
+	ffffffff82445363 do_dentry_open+0xe3 ([kernel.kallsyms])
+	ffffffff82447e77 vfs_open+0x37 ([kernel.kallsyms])
+	ffffffff82462e29 path_openat+0xad9 ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 18091.139513:   10101010 cpu-clock:ppp: 
+	    74744fdb09f3 _rust_notify::RustNotify::watch+0x393 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 18095.414032:   10101010 cpu-clock:ppp: 
+	         1a56154 _PyObject_VectorcallTstate.llvm.8953330587472257213+0x0 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+
+notify-rs poll   121183 18107.990676:   10101010 cpu-clock:ppp: 
+	ffffffff8252d008 ext4_es_lookup_extent+0xa8 ([kernel.kallsyms])
+	ffffffff8253e83e ext4_map_blocks+0x16e ([kernel.kallsyms])
+	ffffffff8253f682 ext4_getblk+0x82 ([kernel.kallsyms])
+	ffffffff8253f8e4 ext4_bread+0x14 ([kernel.kallsyms])
+	ffffffff8255abf3 __ext4_read_dirblock.part.0+0x33 ([kernel.kallsyms])
+	ffffffff8255b3ca htree_dirblock_to_tree+0xaa ([kernel.kallsyms])
+	ffffffff8255cad6 ext4_htree_fill_tree+0xe6 ([kernel.kallsyms])
+	ffffffff8251f609 ext4_readdir+0x789 ([kernel.kallsyms])
+	ffffffff824691ee iterate_dir+0x9e ([kernel.kallsyms])
+	ffffffff82469d94 __x64_sys_getdents64+0x84 ([kernel.kallsyms])
+	ffffffff820051f7 x64_sys_call+0x19d7 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ed937 getdents64+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe1437f <std::sys::fs::unix::ReadDir as core::iter::traits::iterator::Iterator>::next+0x3f (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fe0caf6 <std::fs::ReadDir as core::iter::traits::iterator::Iterator>::next+0x16 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fde97f1 <walkdir::IntoIter as core::iter::traits::iterator::Iterator>::next+0x191 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 18110.763743:   10101010 cpu-clock:ppp: 
+	ffffffff8242d1c7 mod_memcg_state+0x7 ([kernel.kallsyms])
+	ffffffff8242d21d memcg_account_kmem+0x1d ([kernel.kallsyms])
+	ffffffff824324e9 obj_cgroup_charge+0xf9 ([kernel.kallsyms])
+	ffffffff8240a67e kmem_cache_alloc+0x8e ([kernel.kallsyms])
+	ffffffff8244e935 alloc_empty_file+0x55 ([kernel.kallsyms])
+	ffffffff8246239d path_openat+0x4d ([kernel.kallsyms])
+	ffffffff82463e16 do_filp_open+0xb6 ([kernel.kallsyms])
+	ffffffff8244817b do_sys_openat2+0x9b ([kernel.kallsyms])
+	ffffffff82448739 __x64_sys_openat+0x59 ([kernel.kallsyms])
+	ffffffff82005270 x64_sys_call+0x1a50 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    74745091c8b4 __open64_nocancel+0x44 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508ed5b4 opendir+0x34 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe14d52 std::sys::fs::unix::readdir+0x82 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdea7f1 walkdir::IntoIter::push+0x151 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	6c6165722f6d6972 [unknown] ([unknown])
+
+uvicorn  121179 18118.030362:   10101010 cpu-clock:ppp: 
+	    74745082a6e0 __errno_location+0x0 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+
+uvicorn  121179 18126.670358:   10101010 cpu-clock:ppp: 
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+uvicorn  121179 18127.931860:   10101010 cpu-clock:ppp: 
+	         1a14296 _PyEval_EvalFrameDefault+0x1e96 (/home/karim/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/bin/python3.12)
+	    74744ffc3f50 [unknown] ([unknown])
+
+uvicorn  121179 18135.642307:   10101010 cpu-clock:ppp: 
+	ffffffff8215c067 finish_task_switch.isra.0+0x97 ([kernel.kallsyms])
+	ffffffff83085f3c __schedule+0x36c ([kernel.kallsyms])
+	ffffffff8308674f schedule+0x6f ([kernel.kallsyms])
+	ffffffff8308ccbd do_nanosleep+0x5d ([kernel.kallsyms])
+	ffffffff821e677b hrtimer_nanosleep+0x9b ([kernel.kallsyms])
+	ffffffff821f0048 common_nsleep+0x48 ([kernel.kallsyms])
+	ffffffff821f3186 __x64_sys_clock_nanosleep+0xd6 ([kernel.kallsyms])
+	ffffffff82004719 x64_sys_call+0xef9 ([kernel.kallsyms])
+	ffffffff830785aa do_syscall_64+0x5a ([kernel.kallsyms])
+	ffffffff83200134 entry_SYSCALL_64_after_hwframe+0x78 ([kernel.kallsyms])
+	    7474508ecadf clock_nanosleep+0xbf (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    7474508f9a27 __nanosleep+0x17 (/usr/lib/x86_64-linux-gnu/libc.so.6)
+	    74744fe0b8f0 std::thread::sleep+0x80 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	    74744fdb093e _rust_notify::RustNotify::watch+0x2de (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+
+notify-rs poll   121183 18138.501253:   10101010 cpu-clock:ppp: 
+	    74744fddd014 std::sys::backtrace::__rust_begin_short_backtrace+0x64 (/home/karim/real-world-ml-system/.venv/lib/python3.12/site-packages/watchfiles/_rust_notify.cpython-312-x86_64-linux-gnu.so)
+	        26653800 [unknown] ([unknown])
+
