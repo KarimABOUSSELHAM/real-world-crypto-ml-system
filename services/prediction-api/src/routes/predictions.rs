@@ -34,6 +34,11 @@ pub async fn get_prediction(
     info!("Requested prediction for {}", pair);
     let pool=app_state.pool;
     let psql_view=app_state.config.psql_view_name;
+    // Refresh the materialized view before querying
+    let refresh_query = format!("REFRESH MATERIALIZED VIEW CONCURRENTLY public.{}", psql_view);
+    if let Err(e) = sqlx::query(&refresh_query).execute(&pool).await {
+    eprintln!("Failed to refresh materialized view: {:?}", e);
+    }
     let query=format!(
         "SELECT pair, predicted_price, ts_ms, predicted_ts_ms FROM public.{} WHERE pair = $1", 
         psql_view
