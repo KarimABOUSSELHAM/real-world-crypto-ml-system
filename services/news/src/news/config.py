@@ -7,8 +7,9 @@ class CryptopanicConfig(BaseSettings):
     """
 
     cryptopanic_api_key: str
+    polling_interval_sec: int = 10
     kafka_broker_address: str
-    kafka_topic: str
+    kafka_output_topic: str
 
 
 config = CryptopanicConfig()

@@ -12,9 +12,11 @@ class News(BaseModel):
     This is the data model for the news.
     """
 
+    id: int
     title: str
-    description: Optional[str]
+    description: Optional[str] = ''
     published_at: str
+    created_at: str
 
     # Challenge: You can also keep the URL and scrape it to get even more context
     # about this piece of news.
@@ -72,8 +74,6 @@ class NewsDownloader:
         cryptopanic_api_key: str,
     ):
         self.cryptopanic_api_key = cryptopanic_api_key
-        # logger.debug(f"Cryptopanic API key: {self.cryptopanic_api_key}")
-        # self._last_published_at = None
 
     def _get_url(self) -> str:
         """
@@ -118,7 +118,10 @@ class NewsDownloader:
             A tuple containing the list of news and the next URL to fetch from.
         """
         response = requests.get(url)
-
+        # Debug the case where there are kind of HTTP errors
+        # if response.status_code != 200:
+        #     logger.error(f"HTTP Error {response.status_code}: {response.text}")
+        #     return ([], '')
         try:
             response = response.json()
         except Exception as e:
@@ -131,9 +134,11 @@ class NewsDownloader:
         # parse the API response into a list of News objects
         news = [
             News(
+                id=post['id'],
                 title=post['title'],
                 description=post['description'],
                 published_at=post['published_at'],
+                created_at=post['created_at'],
             )
             for post in response['results']
             if post['kind'] == 'news'
@@ -151,4 +156,3 @@ if __name__ == '__main__':
     news_downloader = NewsDownloader(cryptopanic_api_key=config.cryptopanic_api_key)
     news = news_downloader.get_news()
     logger.debug(f'Fetched {len(news)} news items')
-    breakpoint()

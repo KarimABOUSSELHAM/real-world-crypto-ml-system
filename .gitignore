@@ -228,3 +228,5 @@ auth
 kubeconfig
 *-secret.yaml
 .vscode
+perf.data
+perf.data.old
