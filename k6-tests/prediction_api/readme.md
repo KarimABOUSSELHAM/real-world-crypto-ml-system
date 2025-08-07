@@ -12,3 +12,9 @@ The idea is to generate a diff flamegraph between both APIs considering the one 
 You should first install the `perf` which is a powerful Linux performance analysis tool that collects CPU profiling data and other hardware/software event metrics regardless of the programming language used. It helps developers understand where their programs spend time by sampling stack traces, enabling the creation of flamegraphs and detailed performance reports.
 
 You can find the installation instructions of `perf` iw wsl2 right [here](https://www.arong-xu.com/en/posts/wsl2-install-perf-with-manual-compile/).
+
+summary 
+    - Keep on the prerequisites with talking about the load test and k6 grafana
+    - List the workflow to generate the flame graph and diff flamegraph of each API
+    - Show the python flamegraph and the rust flamegraph and analyze each of them
+    - Show the differential flamegraph and analyze it

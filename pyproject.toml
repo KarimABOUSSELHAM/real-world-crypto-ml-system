@@ -47,6 +47,7 @@ members = [
     "services/technical_indicators",
     "services/predictor",
     "services/prediction_api_py",
+    "services/news",
 ]
 
 [tool.uv.sources]
