@@ -146,11 +146,9 @@ class NewsDownloader:
 
 
 if __name__ == '__main__':
-    from news.config import cryptopanic_config
+    from news.config import config
 
-    news_downloader = NewsDownloader(
-        cryptopanic_api_key=cryptopanic_config.cryptopanic_api_key
-    )
+    news_downloader = NewsDownloader(cryptopanic_api_key=config.cryptopanic_api_key)
     news = news_downloader.get_news()
     logger.debug(f'Fetched {len(news)} news items')
     breakpoint()
