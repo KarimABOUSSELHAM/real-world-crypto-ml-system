@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: news
+  namespace: rwml
+  labels:
+    app.kubernetes.io/name: news
+    app.kubernetes.io/instance: news
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: news
+  template:
+    metadata:
+      labels:
+        app: news
+    spec:
+      containers:
+      - name: news
+        image: news:dev
+        imagePullPolicy: Never # Use the local image
+        envFrom:
+          - configMapRef:
+              name: news-config

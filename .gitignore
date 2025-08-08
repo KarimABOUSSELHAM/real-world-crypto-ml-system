@@ -219,7 +219,8 @@ anthropic.env
 
 # direnv
 .env.local
-
+# Env file to generate configmaps
+.env.kind
 *.pyc
 .sops.yaml
 /homeworks
