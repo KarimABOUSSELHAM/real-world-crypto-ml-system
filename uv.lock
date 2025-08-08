@@ -11,6 +11,7 @@ members = [
     "candles",
     "crypto-system",
     "news",
+    "news-sentiment",
     "prediction-api-py",
     "predictor",
     "technical-indicators",
@@ -2225,6 +2226,11 @@ wheels = [
 name = "news"
 version = "0.1.0"
 source = { editable = "services/news" }
+
+[[package]]
+name = "news-sentiment"
+version = "0.1.0"
+source = { editable = "services/news-sentiment" }
 
 [[package]]
 name = "nltk"
