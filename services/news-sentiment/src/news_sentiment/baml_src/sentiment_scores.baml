@@ -40,4 +40,5 @@ test goldman_sachs_news {
       Goldman Sachs says it is going to buy soon 1 M BTC and sell 1 M ETH.
     "#
   }
+  @@assert( {{this.scores==[{"coin": "BTC", "score": "1"}, {"coin": "ETH", "score": "-1"}]}})
 }
