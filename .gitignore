@@ -231,3 +231,6 @@ kubeconfig
 .vscode
 perf.data
 perf.data.old
+
+#BAML generated python files
+**/baml_client
