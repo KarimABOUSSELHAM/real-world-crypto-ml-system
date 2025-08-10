@@ -14,7 +14,7 @@ class SentimentScores {
 function ExtractSentimentScores(news: string) -> SentimentScores {
   // Specify a client as provider/model-name
   // you can use custom LLM params with a custom client name from clients.baml like "client CustomHaiku"
-  client "CustomSonnet4" // Set OPENAI_API_KEY to use this client.
+  client "ClaudeOpus4" // Set OPENAI_API_KEY to use this client.
   prompt #"
     You are an expert crypto financial analyst with deep knowledge of market dynamics 
     and sentiment analysis.

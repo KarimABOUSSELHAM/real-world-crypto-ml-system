@@ -11,7 +11,7 @@ class SentimentExctractor:
 
 
 if __name__ == '__main__':
-    sentiment_extractor = SentimentExctractor(model='CustomSonnet4')
+    sentiment_extractor = SentimentExctractor(model='ClaudeOpus4')
     print(
         sentiment_extractor.extract_sentiment_scores(
             'Goldman Sachs says it is going to buy soon 1 M BTC and sell 1 M ETH.'
