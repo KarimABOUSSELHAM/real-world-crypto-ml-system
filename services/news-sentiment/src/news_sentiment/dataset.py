@@ -27,7 +27,7 @@ def load_news_from_csv(input_csv_file: str, samples: Optional[int]) -> list[str]
 
 
 def generate(
-    input_csv_file: str,
+    input_news: str,
     dataset_name: str,
     teacher_model: str,
     samples: Optional[int] = None,
@@ -41,10 +41,17 @@ def generate(
         samples (int): The number of samples
         teacher_model (str): The model we use to bootstrap the dataset
     """
-    # Load the news from the given csv file
-    logger.info(f'Loading news from {input_csv_file}...')
-    news: list[str] = load_news_from_csv(input_csv_file=input_csv_file, samples=samples)
-    logger.info(f'Loaded {samples} news')
+    if input_news.endswith('.csv'):
+        input_csv_file = input_news
+        # Load the news from the given csv file
+        logger.info(f'Loading news from {input_csv_file}...')
+        news: list[str] = load_news_from_csv(
+            input_csv_file=input_csv_file, samples=samples
+        )
+        logger.info(f'Loaded {samples} news')
+    else:
+        logger.info(f'loading sing news item: {input_news}')
+        news = [input_news]
     # Load the sentiment extractor to score the news
     sentiment_extractor = SentimentExctractor(model=teacher_model)
     # Create a dataset

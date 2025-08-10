@@ -1,3 +1,5 @@
+from opik import track
+
 from news_sentiment.baml_client.sync_client import b
 from news_sentiment.baml_client.types import SentimentScores
 
@@ -6,7 +8,17 @@ class SentimentExctractor:
     def __init__(self, model):
         self.model = model
 
+    @track
     def extract_sentiment_scores(self, news: str) -> SentimentScores:
+        """
+        Extract the sentiment scores for the given news
+
+        Args:
+            news (str): news given to score
+
+        Returns:
+            SentimentScores: Object instance which includes the scores
+        """
         return b.ExtractSentimentScores(news)
 
 
