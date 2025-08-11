@@ -16,3 +16,8 @@ tricky-example:
 curate-dataset:
 	uv run ./curate_dataset.py \
 	--dataset_name news-sentiment-dataset-live \
+
+evaluate:
+	uv run ./evaluate.py \
+	--dataset_name news-sentiment-dataset-live \
+	--model claude-opus-4-1-20250805
