@@ -2,14 +2,50 @@ from typing import Any
 
 from opik.evaluation.metrics import base_metric, score_result
 
+from news_sentiment.baml_client.types import SentimentScore
 
-class SameETHScoreMetric(base_metric.BaseMetric):
-    def __init__(self, name: str):
+
+class SameScoreMetric(base_metric.BaseMetric):
+    def __init__(self, name: str, coin: str):
         self.name = name
+        self.coin = coin
 
-    def score(self, input: str, output: str, **ignored_kwargs: Any):
+    def _has_non_zero_score(self, scores: list[dict[str, int]]) -> bool:
+        """
+        Returns True if `scores` list has a non zero element for the coin `self.coin`
+        """
+        return any(x['coin'] == self.coin and x['score'] != 0 for x in scores)
+
+    def _get_score(self, scores: list[dict[str, int]]):
+        """
+        Returns the score for the coin `self.coin`
+        """
+        return [x for x in scores if x['coin'] == self.coin[0]['score']]
+
+    def score(
+        self,
+        input: str,
+        scores: list[SentimentScore],
+        expected_output: list[dict[str, int]],
+        **ignored_kwargs: Any,
+    ):
+        #  Transform scores as a list of dicts
+        scores = [{'coin': str(x.coin), 'score': x.score} for x in scores]
+        value = 0
+        if (not self._has_non_zero_score(scores)) and (
+            not self._has_non_zero_score(expected_output)
+        ):
+            value = 1
+        elif self._has_non_zero_score(scores) and self._has_non_zero_score(
+            expected_output
+        ):
+            value = (
+                1 if self._get_score(scores) == self._get_score(expected_output) else 0
+            )
         # Add you logic here
 
         return score_result.ScoreResult(
-            value=0, name=self.name, reason='Optional reason for the score'
+            value=value,
+            name=self.name,
+            # reason='Optional reason for the score'
         )
