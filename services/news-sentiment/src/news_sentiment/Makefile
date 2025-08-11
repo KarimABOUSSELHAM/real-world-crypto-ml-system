@@ -13,3 +13,6 @@ tricky-example:
 	--input_news "I think ETH price will crash by the end of August 2025" \
 	--dataset_name news-sentiment-dataset-live \
 	--teacher_model claude-opus-4-1-20250805
+curate-dataset:
+	uv run ./curate_dataset.py \
+	--dataset_name news-sentiment-dataset-live \
