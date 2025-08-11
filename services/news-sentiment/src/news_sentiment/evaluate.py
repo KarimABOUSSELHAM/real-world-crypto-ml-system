@@ -31,12 +31,12 @@ def evaluate_sentiment_extractor(
     # Define the evaluation task
     def evaluation_task(x):
         return {
-            'output': sentiment_extractor.extract_sentiment_scores(x['input']).scores,
+            'scores': sentiment_extractor.extract_sentiment_scores(x['input']).scores,
             'reason': sentiment_extractor.extract_sentiment_scores(x['input']).reason,
         }
 
     #  Launch the evaluation porcess
-    _evaluation = evaluate(
+    evaluation = evaluate(
         dataset=dataset,
         task=evaluation_task,
         scoring_metrics=[same_eth_score_metric],
@@ -44,6 +44,8 @@ def evaluate_sentiment_extractor(
         task_threads=1,
         dataset_item_ids=dataset_item_id if dataset_item_id else None,
     )
+    # Print the evaluation results
+    print(evaluation)
 
 
 if __name__ == '__main__':

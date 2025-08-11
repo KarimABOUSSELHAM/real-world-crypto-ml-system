@@ -20,7 +20,8 @@ function ExtractSentimentScores(news: string) -> SentimentScores {
     and sentiment analysis.
     Analyze the following news story and determine its potential impact on crypto asset prices.
     Focus on both direct mentions and indirect implications for each asset.
-
+    If the opinions comes from a physical or moral person who is not relevant in the crypto market
+    or who is unknown, do not output any sentiment score for whatever the coin is.
     Do not output data for a given coin if the news is not relevant to it.
 
     Extract from this content:
@@ -41,4 +42,14 @@ test goldman_sachs_news {
     "#
   }
   @@assert( {{this.scores==[{"coin": "BTC", "score": "1"}, {"coin": "ETH", "score": "-1"}]}})
+}
+
+test unknown_opinion {
+  functions [ExtractSentimentScores]
+  args {
+    news #"
+      I think ETH price will crash by the end of august 2025.
+    "#
+  }
+  @@assert( {{this.scores==[]}})
 }
