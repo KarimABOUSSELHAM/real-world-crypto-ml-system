@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: news-sentiment
+  namespace: rwml
+  labels:
+    app.kubernetes.io/name: news-sentiment
+    app.kubernetes.io/instance: news-sentiment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: news-sentiment
+  template:
+    metadata:
+      labels:
+        app: news-sentiment
+    spec:
+      containers:
+      - name: news-sentiment
+        image: news-sentiment:dev
+        imagePullPolicy: Never # Use the local image
+        envFrom:
+          - configMapRef:
+              name: news-sentiment-config

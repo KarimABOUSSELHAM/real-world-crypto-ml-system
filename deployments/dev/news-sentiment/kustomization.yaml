@@ -1,0 +1,17 @@
+#
+#  https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
+#
+#  kustomize build deployments/dev/news-sentiment | kubectl apply -f -
+#
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rwml
+resources:
+  - ./news-sentiment-d.yaml
+
+configMapGenerator:
+  - name: news-sentiment-config
+    envs:
+      - .env.kind
