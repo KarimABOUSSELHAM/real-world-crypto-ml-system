@@ -20,10 +20,10 @@ curate-dataset:
 evaluate:
 	uv run ./evaluate.py \
 	--dataset_name news-sentiment-dataset-live \
-	--model claude-opus-4-1-20250805
+	--model $(MODEL)
 
 evaluate-tricky-example:
 	uv run ./evaluate.py \
 	--dataset_name news-sentiment-dataset-live \
-	--model claude-opus-4-1-20250805
+	--model $(MODEL) \
 	--dataset_item 019894f8-d3e3-705c-a7c3-7020916af55c
