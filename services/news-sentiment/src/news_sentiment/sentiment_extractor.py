@@ -1,5 +1,5 @@
 import os
-from typing import Literal
+from typing import Literal, Optional
 
 from baml_py import ClientRegistry
 from loguru import logger
@@ -10,8 +10,13 @@ from news_sentiment.baml_client.types import SentimentScores
 
 
 class SentimentExctractor:
-    def __init__(self, model):
+    def __init__(
+        self,
+        model,
+        base_url: Optional[str] = 'http://localhost:11434/v1',
+    ):
         self.model = model
+        self.base_url = base_url
         model_provider, model_name = model.split('/')
         logger.debug(
             f'Initializing SentimentExctractor with model: {model_provider}/{model_name}'
@@ -46,7 +51,7 @@ class SentimentExctractor:
                 options={
                     'model': model_name,
                     'temperature': 0.0,
-                    'base_url': 'http://localhost:11434/v1',
+                    'base_url': self.base_url,
                 },
             )
         else:

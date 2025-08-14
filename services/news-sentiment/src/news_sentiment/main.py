@@ -80,7 +80,7 @@ def run(
 if __name__ == '__main__':
     from news_sentiment.config import config
 
-    sentiment_extractor = SentimentExctractor(model='ClaudeSonnet4')
+    sentiment_extractor = SentimentExctractor(model=config.model)
     run(
         kafka_broker_address=config.kafka_broker_address,
         kafka_input_topic=config.kafka_input_topic,
