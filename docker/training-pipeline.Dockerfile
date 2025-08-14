@@ -1,46 +1,43 @@
-# Base image with uv + deps
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS base-deps
+# Use a Python image with uv pre-installed
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
+# Install build tools and CMake
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install the project into `/app`
 WORKDIR /app
 
-COPY pyproject.toml uv.lock ./
+# Enable bytecode compilation
+ENV UV_COMPILE_BYTECODE=1
 
-RUN apt-get update && apt-get install -y libgomp1 build-essential git \
-# && uv sync --locked --no-install-project --no-dev \
-&& apt-get clean && rm -rf /var/lib/apt/lists/*
+# Copy from the cache instead of linking since it's a mounted volume
+ENV UV_LINK_MODE=copy
 
-# Builder
-FROM base-deps AS builder
+COPY services /app/services
 
-COPY services/candles /app/services/candles
-COPY services/predictor /app/services/predictor
-COPY services/technical_indicators /app/services/technical_indicators
-COPY . /app
+# Install the project's dependencies using the lockfile and settings
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --frozen --no-install-project --no-dev
 
-RUN uv sync --locked --no-editable --no-dev
+# Then, add the rest of the project source code and install it
+# Installing separately from its dependencies allows optimal layer caching
+ADD . /app
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev
 
-# Cleaner
-FROM python:3.12-slim-bookworm AS cleaner
-
-WORKDIR /app
-
-COPY --from=builder /app/.venv /app/.venv
-COPY --from=builder /app/services/predictor /app/services/predictor
-
-RUN find /app/.venv -name '*.pyc' -delete && \
-    find /app/.venv -name '__pycache__' -delete && \
-    rm -rf /app/.venv/share /app/.venv/include /app/.venv/lib/python3.12/test
-
-# Runtime
-FROM python:3.12-slim-bookworm
-
+# Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 
-RUN apt-get update && apt-get install -y libgomp1 && rm -rf /var/lib/apt/lists/*
+# Reset the entrypoint, don't invoke `uv`
+ENTRYPOINT []
 
-WORKDIR /app
+CMD ["uv", "run", "/app/services/predictor/src/predictor/train.py"]
 
-COPY --from=cleaner /app/.venv /app/.venv
-COPY --from=cleaner /app/services/predictor /app/services/predictor
-
-CMD ["python", "/app/services/predictor/src/predictor/train.py"]
+# If you want to debug the file system, uncomment the line below
+# This will keep the container running and allow you to exec into it
+# CMD ["/bin/bash", "-c", "sleep 999999"]
