@@ -1,0 +1,15 @@
+commonMetaLabels: 
+  environment: dev 
+  project: rwml
+serverFiles:
+  prometheus.yml:
+    scrape_configs:
+      - job_name: "ml-metrics"
+        static_configs:
+        # Let's assume the service is named "ml-stability-service" and it exposes metrics on port 11000
+        # We can update the target to match the service name and port later
+          - targets: ["ml-stability.rwml.svc.cluster.local:11000"]
+forceNamespace: "monitoring"
+alertmanager:
+  enabled: false
+
