@@ -19,7 +19,6 @@ def get_model_name(
     )
 
 
-# TODO: Create a custom Model type to annotate the output of this function.
 def load_model(
     model_name: str,
     model_version: Optional[str] = 'latest',

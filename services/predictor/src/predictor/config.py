@@ -74,3 +74,14 @@ class PredictorConfig(BaseSettings):
 
 
 predictor_config = PredictorConfig()
+
+
+class StabilityConfig(BaseSettings):
+    mlflow_tracking_uri: str = 'http://localhost:5000'
+    candle_seconds: int = 60
+    prediction_horizon_seconds: int = 300
+    pair: str = 'ETH/EUR'
+    exporter_port: int = 11000
+
+
+stability_config = StabilityConfig()

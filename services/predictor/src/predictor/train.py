@@ -233,10 +233,8 @@ def train(
                 for train_index, val_index in tscv.split(X_train):
                     X_tr, X_val = X_train.iloc[train_index], X_train.iloc[val_index]
                     y_tr, y_val = y_train.iloc[train_index], y_train.iloc[val_index]
-                    # TODO:modify this to use a list of model candidates and adjust their hyperparameters
                     # in the next step
                     # Step 9: Pick the best model from the table and train it with the best hyperparameters
-                    # TODO: Implement this step
                     # logger.info(f'Start training model: {model} with hyperparams search')
                     model.fit(
                         X_tr,
