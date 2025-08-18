@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-stability
+  namespace: rwml
+  labels:
+    app.kubernetes.io/name: ml-stability
+    app.kubernetes.io/instance: ml-stability
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-stability
+  template:
+    metadata:
+      labels:
+        app: ml-stability
+    spec:
+      containers:
+      - name: ml-stability
+        image: ml-stability:dev
+        imagePullPolicy: Never # Use the local image
+        env:
+        #
+        - name: MLFLOW_TRACKING_URI
+          valueFrom:
+            configMapKeyRef:
+              name: ml-stability
+              key: MLFLOW_TRACKING_URI
+        #
+        - name: CANDLE_SECONDS
+          valueFrom:
+            configMapKeyRef:
+              name: ml-stability
+              key: CANDLE_SECONDS
+        #
+        - name: PREDICTION_HORIZON_SECONDS
+          valueFrom:
+            configMapKeyRef:
+              name: ml-stability
+              key: PREDICTION_HORIZON_SECONDS
+        #
+        - name: PAIR
+          valueFrom:
+            configMapKeyRef:
+              name: ml-stability
+              key: PAIR
+        #
+        - name: EXPORTER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: ml-stability
+              key: EXPORTER_PORT
