@@ -16,6 +16,9 @@ env:
   GF_SERVER_ROOT_URL: http://grafana.local.dev
   GF_LOG_LEVEL: debug
   GF_LOG.CONSOLE_LEVEL: debug
+  GF_PLUGIN_ALLOW_LOADING_UNSIGNED_PLUGINS: "grafana-pyroscope-app,grafana-metricsdrilldown-app,grafana-exploretraces-app"
+
+
 
 adminUser: admin
 adminPassword: grafana
@@ -54,7 +57,7 @@ datasources:
     deleteDatasources:
       - { name: Alertmanager, orgId: 1 }
       - { name: Loki, orgId: 1 }
-      - { name: Prometheus, orgId: 1 }
+      # - { name: Prometheus, orgId: 1 }
     datasources:
       - name: RisingWave
         type: postgres
@@ -65,6 +68,13 @@ datasources:
         secureJsonData:
           password: "123456"
         isDefault: true
+      - name: Prometheus
+        type: prometheus
+        uid: prometheus
+        orgId: 1
+        access: proxy
+        url: http://prometheus-server.monitoring.svc.cluster.local:9090
+        isDefault: false
 
 dashboards:
   default:
@@ -108,3 +118,83 @@ securityContext:
 
 initChownData:
   enabled: false
+
+alerting:
+  # Alerting policies
+  policies.yaml:
+    apiVersion: 1
+    policies:
+      - name: "default_policy"
+        orgId: 1
+        receiver: "email_receiver_1"  # must match contactPoints UID
+        routes: []
+        frequency: 60s
+
+  # Alerting rules
+  rules.yaml:
+    apiVersion: 1
+    groups:
+      - orgId: 1
+        name: 'grafana_mae_alerts'
+        folder: rwml_folder
+        interval: 60s
+        rules:
+          - uid: mae_gt_4
+            title: "MAE > 4"
+            condition: A
+            data:
+              - refId: A
+                datasourceUid: prometheus  # assumes Prometheus datasource UID is 'prometheus'
+                relativeTimeRange:   # required by Grafana schema
+                  from: 600
+                  to: 0
+                model:
+                  datasource:
+                    type: prometheus
+                    uid: prometheus
+                  expr: max_over_time(mlflow_model_mae_test[1m])>4
+                  interval: ""
+                  intervalFactor: 2
+                  maxDataPoints: 43200    # metric name only
+                  refId: A
+                  type: query
+            for: 60s
+            noDataState: Alerting
+            execErrState: Alerting
+            annotations:
+              description: "MAE has exceeded threshold of 4"
+            labels:
+              severity: warning
+            conditions:
+              - type: query
+                query:
+                  params:
+                    - A
+                reducer:
+                  type: last
+                evaluator:
+                  type: gt
+                  params:
+                    - 4
+                operator:
+                  type: and
+
+  # Contact points
+  contactpoints.yaml:
+    secret:
+      apiVersion: 1
+      contactPoints:
+        - orgId: 1
+          name: "email_receiver_1"
+          receivers:
+            - uid: "email_receiver_1"
+              type: email
+              settings:
+                addresses: "example@example.com" # Replace with your email address
+                singleEmail: true
+                message: |
+                  The test mae has exceeded the threshold of 4.
+                  Please check the Grafana dashboard for more details.
+                subject: "Grafana Alert: Threshold of mae exceeded"
+alertEmails: "me@example.com" # Just a placeholder, not used in this config but required by the chart
+# upgrade to distinguish from the other case before setting up grafana alerting
