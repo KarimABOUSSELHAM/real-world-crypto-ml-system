@@ -140,6 +140,6 @@ The results are stored in both files `rust_perf_output.txt` and `python_perf_out
 
 - Wall-clock: Python takes longer (66.9 ms) → includes async I/O, database access, and Python interpreter overhead.
 
-Rust is clearly more performant than Python FastAPI for this endpoint and this is expected as Pau Labarta Bajo often assimilates Python with a bycicle and Rust with a rocket.
+Rust is clearly more performant than Python FastAPI for this endpoint and this is expected as **[Pau Labarta Bajo](https://www.linkedin.com/in/pau-labarta-bajo-4432074b/)** often assimilates Python with a bycicle and Rust with a rocket.
 
 However⚠️ the caveat is: This is a micro-benchmark for one request. In a real system, Python could scale reasonably under high concurrency with async I/O, but Rust will almost always have a lower latency per request.
