@@ -1,0 +1,16 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   109  100   109    0     0   5799      0 --:--:-- --:--:-- --:--:--  6055
+{"pair":"ETH/EUR","predicted_price":3715.3396142003257,"ts_ms":1755551431063,"predicted_ts_ms":1755551760000}
+ Performance counter stats for 'curl http://localhost:3001/prediction?pair=ETH/EUR':
+
+              7.03 msec task-clock                       #    0.259 CPUs utilized             
+                 1      context-switches                 #  142.241 /sec                      
+               602      page-faults                      #   85.629 K/sec                     
+
+       0.027182571 seconds time elapsed
+
+       0.002205000 seconds user
+       0.004411000 seconds sys
+
+
